@@ -9,7 +9,7 @@
         <el-upload
             v-show="isShow"
             class="el-upload"
-            action="http://www.jian-internet.com:8081/JMask/DealData/dealImgWeb"
+            action="/api/JMask/DealData/dealImgWeb"
             list-type="picture-card"
             :auto-upload="true"
             :before-upload="beforeAvatarUpload"
