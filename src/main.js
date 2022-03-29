@@ -5,15 +5,19 @@ import VueAxios from 'vue-axios'
 import ElementPlus from 'element-plus'
 import 'element-plus/dist/index.css'
 import router from "./router";
-import {Expand, ChatRound} from '@element-plus/icons-vue'
+// import {Expand, ChatRound} from '@element-plus/icons-vue'
+
+
+
 
 const app = createApp(App)
 
 app.use(router)
 app.use(VueAxios, axios)
 app.use(ElementPlus)
-app.component('Expand', Expand)
-app.component('chat-round', ChatRound)
+
+// app.component('Expand', Expand)
+// app.component('chat-round', ChatRound)
 app.mount('#app')
 // app.all('*', (req, res, next) => {
 //     let origin = req.headers.origin;

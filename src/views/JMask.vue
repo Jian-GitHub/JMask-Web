@@ -2,6 +2,7 @@
   <div class="JMaskPage">
     <div>
       <el-menu
+          v-if="this.$router.currentRoute.value.path.toLowerCase() !== '/jmask/login' && this.$router.currentRoute.value.path.toLowerCase() !== '/jmask/registration'"
           id="menu"
           :default-active="activeIndex"
           class="el-menu-demo"
@@ -88,7 +89,7 @@ export default defineComponent({
       activeTextColor: ref('#ffd04b'),
       activeIndex: ref('1'),
       scrollbarWidth: ref(-1),
-      menu: ref(null)
+      menu: ref(null),
     }
   },
   methods: {
@@ -107,6 +108,8 @@ export default defineComponent({
           this.menu.style.paddingRight = this.scrollbarWidth + 'px';
           break;
         case '4':
+          router.push({path: '/JMask/User'})
+          this.menu.style.paddingRight = this.scrollbarWidth + 'px';
           break;
       }
       keyPath

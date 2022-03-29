@@ -9,7 +9,7 @@
         <el-upload
             v-show="isShow"
             class="el-upload"
-            action="/api/JMask/DealData/dealImgWeb"
+            :action="dealImg"
             list-type="picture-card"
             :auto-upload="true"
             :before-upload="beforeAvatarUpload"
@@ -85,6 +85,7 @@
 <script>
 import {Plus, ZoomIn, Download, Delete} from '@element-plus/icons-vue'
 import {ref} from "vue";
+import store from "@/store"
 
 export default {
   name: "Online",
@@ -96,6 +97,7 @@ export default {
   },
   data() {
     return {
+      dealImg: store.urls.dealImg,
       fileURL: ref(null),
       dialogImageUrl: '',
       dialogVisible: false,
@@ -108,9 +110,14 @@ export default {
   methods: {
     onSuccess(response, file, fileList) {
       fileList
-      // console.log(response);
-      this.resultImgData = 'data:image/jpg;base64,' + response;
-      this.dialogImageUrl = file.url;
+      if(response === ""){
+        this.resultImgData = '/store/images/error.svg';
+        this.dialogImageUrl = '';
+      }else {
+        // console.log(response);
+        this.resultImgData = 'data:image/jpg;base64,' + response;
+        this.dialogImageUrl = file.url;
+      }
       this.isShow = false;
       this.loading = false;
     },
@@ -129,16 +136,16 @@ export default {
       // this.dialogImageUrl = file.url;
       // console.log(file.raw.url)
       this.loading = true;
-      const isJPG = file.type === 'image/jpeg' || file.type === 'image/png'
-      const isLt2M = file.size / 1024 / 1024 < 50
+      const isJPG = file.type === 'image/jpeg';// || file.type === 'image/png'
+      const isLt10M = file.size / 1024 / 1024 < 10
 
       if (!isJPG) {
-        this.$message.error('Avatar picture must be JPG format!')
+        this.$message.error('请上传jpg图片')
         this.loading = false;
         return false;
       }
-      if (!isLt2M) {
-        this.$message.error('Avatar picture size can not exceed 50MB!')
+      if (!isLt10M) {
+        this.$message.error('请上传小于10MB的图片')
         this.loading = false;
         return false;
       }
@@ -148,7 +155,7 @@ export default {
       //   console.log(data);
       // })
 
-      return isJPG && isLt2M
+      return isJPG && isLt10M
     },
   }
 }
