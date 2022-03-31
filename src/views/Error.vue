@@ -11,7 +11,7 @@ export default {
       confirmButtonText: '确定'
     }).then((response)=>{
       localStorage.removeItem('access-admin')
-      _this.$router.replace({path:'/login'})
+      _this.$router.replace({path:'/loginURL'})
     })
   }
 }

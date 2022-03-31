@@ -2679,16 +2679,16 @@
 <script>
     $(function () {
         var locationOrigin = window.location.protocol + "//" + window.location.hostname + (window.location.port ? ':' + window.location.port : '');
-        $('#imgVerifyCode-jp').attr({src: locationOrigin + "/login/getVerifyCode?d=" + new Date().getTime()});
+        $('#imgVerifyCode-jp').attr({src: locationOrigin + "/loginURL/getVerifyCode?d=" + new Date().getTime()});
         //alert(1);
         $(".J-lable-wrap").find("h2").click(function () {
             var i = $(this).index();
             if (i == 0) {
                 $(".coAgent").show();
-                $('#imgVerifyCode').attr({src: locationOrigin + "/login/getVerifyCode?d=" + new Date().getTime()});
+                $('#imgVerifyCode').attr({src: locationOrigin + "/loginURL/getVerifyCode?d=" + new Date().getTime()});
             } else {
                 $(".coAgent").hide();
-                $('#imgVerifyCode-jp').attr({src: locationOrigin + "/login/getVerifyCode?d=" + new Date().getTime()});
+                $('#imgVerifyCode-jp').attr({src: locationOrigin + "/loginURL/getVerifyCode?d=" + new Date().getTime()});
             }
             $(this).addClass("active").siblings("h2").removeClass("active");
 
@@ -2770,7 +2770,7 @@
                     return;
                 }
                 $("#noLogin").hide();
-                $("#login").show();
+                $("#loginURL").show();
                 $("#loginSuccess").text("您好，" + data.loginName);
                 $("#memberIntegral").text("积分：" + data.points);
                 $("#loginPopup").hide();

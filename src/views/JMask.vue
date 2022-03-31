@@ -2,7 +2,7 @@
   <div class="JMaskPage">
     <div>
       <el-menu
-          v-if="this.$router.currentRoute.value.path.toLowerCase() !== '/jmask/login' && this.$router.currentRoute.value.path.toLowerCase() !== '/jmask/registration'"
+          v-if="this.$router.currentRoute.value.path.toLowerCase() !== '/jmask/loginURL' && this.$router.currentRoute.value.path.toLowerCase() !== '/jmask/registrationURL'"
           id="menu"
           :default-active="activeIndex"
           class="el-menu-demo"
@@ -70,6 +70,7 @@
 
 import {defineComponent, onMounted, ref} from 'vue'
 import router from "@/router";
+import {openInfoNotification} from "@/utils/Notification";
 
 export default defineComponent({
   name: "JMask",
@@ -106,6 +107,7 @@ export default defineComponent({
         case '3':
           router.push({path: '/JMask/Download'})
           this.menu.style.paddingRight = this.scrollbarWidth + 'px';
+          openInfoNotification('提示', '下载功能暂未开放', true);
           break;
         case '4':
           router.push({path: '/JMask/User'})
@@ -181,7 +183,7 @@ export default defineComponent({
   justify-content: center;
   height: 44px;
   overflow: hidden;
-  z-index: 9999;
+  z-index: 1001;
 }
 
 #view {

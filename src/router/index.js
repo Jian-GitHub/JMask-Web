@@ -1,18 +1,19 @@
 import {createRouter, createWebHistory} from "vue-router";
-// import axios from "axios";
-// import qs from "qs";
 import {checkToken} from "@/api/api";
 import store from "@/store";
-// import {checkToken} from "@/api/api";
+
 // 1. 定义路由组件.
 // 也可以从其他文件导入
 const JMask = () => import('../views/JMask')
 const Online = () => import('../views/Online')
 const Home = () => import('../views/Home')
 const Download = () => import('../views/Download')
-const Login = () => import('../views/Login')
-const User = () => import('../views/User')
-const Registration = () => import('../views/Registration')
+// const Login = () => import('../views/Login')
+// const User = () => import('../views/User')
+// const Registration = () => import('../views/Registration')
+const User = () => import(/* webpackChunkName: "user" */ '../views/User')
+const Login = () => import(/* webpackChunkName: "user" */ '../views/Login')
+const Registration = () => import(/* webpackChunkName: "user" */ '../views/Registration')
 // const NotFound = () => import('../views/NotFound')
 
 // 2. 定义一些路由
@@ -31,27 +32,45 @@ const routes = [
             {
                 path: '/JMask/Online',
                 // name: 'Online',
-                component: Online
+                component: Online,
+                meta:{
+                    title: 'JMask 在线试用'
+                }
             },
             {
                 path: '/JMask/Home',
-                component: Home
+                component: Home,
+                meta:{
+                    title: 'JMask'
+                }
             },
             {
                 path: '/JMask/Download',
-                component: Download
+                component: Download,
+                meta:{
+                    title: 'JMask 下载应用'
+                }
             },
             {
                 path: '/JMask/Login',
-                component: Login
+                component: Login,
+                meta:{
+                    title: 'JMask 登录'
+                }
             },
             {
                 path: '/JMask/User',
-                component: User
+                component: User,
+                meta:{
+                    title: 'JMask 个人中心'
+                }
             },
             {
                 path: '/JMask/Registration',
-                component: Registration
+                component: Registration,
+                meta:{
+                    title: 'JMask 注册'
+                }
             }
         ]
     },
@@ -76,18 +95,21 @@ const router = createRouter({
 })
 
 router.beforeEach((to, from, next) => {
-    // if(to.path.startsWith('/login')){
+    // if(to.path.startsWith('/loginURL')){
     //     window.localStorage.removeItem('access-admin')
     //     next()
     // }
-    if (to.path.toLowerCase() === '/jmask/login'){
+    if (to.path.toLowerCase() === '/jmask/loginURL'){
         window.localStorage.removeItem('token');
+        store.userName = '';
+        document.title = 'JMask 登录';
         next();
     }else if (to.path.toLowerCase() === '/jmask/user') {
         let token = JSON.parse(window.localStorage.getItem('token'))
         if (!token) {
             window.localStorage.setItem('toPath', to.path)
             next({path: '/JMask/Login'})
+            document.title = 'JMask 登录';
         } else {
             //检验token合法性
             checkToken().then((response) => {
@@ -95,13 +117,20 @@ router.beforeEach((to, from, next) => {
                     console.log("检验失败")
                     // next({path: '/error'})
                     next({path: '/JMask/Login'})
+                    document.title = 'JMask 登录';
                 }else{
                     // console.log('token有效')
                     next()
+                    if (to.meta.title) {
+                        document.title = to.meta.title
+                    }
                 }
             })
         }
     } else {
+        if (to.meta.title) {
+            document.title = to.meta.title
+        }
         next()
     }
 })

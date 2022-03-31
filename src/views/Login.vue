@@ -22,7 +22,7 @@
           <el-input
               ref="username"
               v-model="loginForm.username"
-              placeholder="Username"
+              placeholder="请输入用户名"
               name="username"
               type="text"
               tabindex="1"
@@ -31,28 +31,28 @@
         </el-form-item>
 
         <el-form-item prop="password">
-        <span class="svg-container">
-<!--          <svg-icon icon-class="password"/>-->
-          <svg width="30px" height="30px" class="icon" viewBox="0 -250 1500 1024" xmlns="http://www.w3.org/2000/svg"
-               data-v-ba633cb8="">
-            <path fill="currentColor"
-                  d="M870.4 354.576H716.8v-42.88c0-72.32-26.464-193.304-204.8-193.304-185.16 0-204.8 135.048-204.8 193.296v42.888H153.6v-42.88C153.6 122.248 294.384 0 512 0c217.616 0 358.4 122.248 358.4 311.688v42.888z m-256 314.848c0-43.52-46.104-78.656-102.4-78.656-56.296 0-102.4 35.136-102.4 78.656 0 29.456 20.536 54.464 51.256 67.816v89.64c0 21.744 23 39.696 51.2 39.696 28.192 0 51.2-17.952 51.2-39.696V737.24c30.664-13.352 51.144-38.36 51.144-67.816zM1024 512v393.608c0 65.264-69.16 118.392-153.6 118.392H153.6C69.208 1024 0 970.872 0 905.608V512c0-65.224 69.16-118.392 153.6-118.392h716.8c84.44 0 153.6 53.168 153.6 118.392z"
-                  p-id="1368"></path>
-          </svg>
-        </span>
+          <span class="svg-container">
+  <!--          <svg-icon icon-class="password"/>-->
+            <svg width="30px" height="30px" class="icon" viewBox="0 -250 1500 1024" xmlns="http://www.w3.org/2000/svg"
+                 data-v-ba633cb8="">
+              <path fill="currentColor"
+                    d="M870.4 354.576H716.8v-42.88c0-72.32-26.464-193.304-204.8-193.304-185.16 0-204.8 135.048-204.8 193.296v42.888H153.6v-42.88C153.6 122.248 294.384 0 512 0c217.616 0 358.4 122.248 358.4 311.688v42.888z m-256 314.848c0-43.52-46.104-78.656-102.4-78.656-56.296 0-102.4 35.136-102.4 78.656 0 29.456 20.536 54.464 51.256 67.816v89.64c0 21.744 23 39.696 51.2 39.696 28.192 0 51.2-17.952 51.2-39.696V737.24c30.664-13.352 51.144-38.36 51.144-67.816zM1024 512v393.608c0 65.264-69.16 118.392-153.6 118.392H153.6C69.208 1024 0 970.872 0 905.608V512c0-65.224 69.16-118.392 153.6-118.392h716.8c84.44 0 153.6 53.168 153.6 118.392z"
+                    p-id="1368"></path>
+            </svg>
+          </span>
           <el-input
               :key="passwordType"
               ref="password"
               v-model="loginForm.password"
               :type="passwordType"
-              placeholder="Password"
+              placeholder="请输入密码"
               name="password"
               tabindex="2"
               auto-complete="on"
               @keyup.enter="handleLogin"
           />
           <span class="show-pwd" @click="showPwd">
-<!--          <svg-icon :icon-class="passwordType === 'password' ? 'eye' : 'eye-open'"/>-->
+<!--          <svg-icon :icon-class="oldPassWordType === 'password' ? 'eye' : 'eye-open'"/>-->
 <!--            <svg t="1648359071583" class="icon" viewBox="0 0 1024 1024" xmlns="http://www.w3.org/2000/svg" width="200" height="200">-->
 <!--              <path d="-->
 <!--              M942.2 486.2C847.4 286.5 704.1 186 512 186c-192.2 0-335.4 100.5-430.2 300.3-7.7 16.2-7.7 35.2 0 51.5C176.6 737.5 319.9 838 512 838c192.2 0 335.4-100.5 430.2-300.3 7.7-16.2 7.7-35 0-51.5zM512 766c-161.3 0-279.4-81.8-362.7-254C232.6 339.8 350.7 258 512 258c161.3 0 279.4 81.8 362.7 254C791.5 684.2 673.4 766 512 766z" p-id="2174"></path>-->
@@ -79,7 +79,7 @@
 <!--          <span>权限: 普通用户（无采集页）</span>-->
 <!--        </div>-->
       </div>
-      <span class="tips" style="font-weight:bold;float:right">没有账号？<a style="font-weight:bold;color: #6fd1ff" href="/JMask/Registration">点我注册</a></span>
+      <span class="tips" style="font-weight:bold;float:right">没有账号？<a style="font-weight:bold;color: #6fd1ff;cursor: pointer;user-select: none;" @click="$router.push({path: '/JMask/Registration'})">点我注册</a></span>
 
     </el-form>
   </div>
@@ -94,15 +94,15 @@ export default {
   name: 'Login',
   data() {
     const validateUsername = (rule, value, callback) => {
-      if (value.length < 1) {
-        callback(new Error('请输入用户名\nPlease enter the correct user name'))
+      if (value.length < 2 || value.length > 15) {
+        callback(new Error('用户名需在2至15位之间'))
       } else {
         callback()
       }
     }
     const validatePassword = (rule, value, callback) => {
-      if (value.length < 5) {
-        callback(new Error('密码位数需大于5位\nThe password can not be less than 6 digits'))
+      if (value.length < 8 || value.length > 15) {
+        callback(new Error('密码位数需大于8位\nThe password can not be less than 6 digits'))
       } else {
         callback()
       }
@@ -153,6 +153,7 @@ export default {
               if (window.localStorage.getItem('toPath')) {
                 window.localStorage.removeItem('toPath');
               }
+              // store.userName = this.loginForm.username;
               router.push({path: toURL});
             } else {
               alert('登录失败')
@@ -178,15 +179,15 @@ export default {
 <!--/*$cursor: #fff;*/-->
 
 <!--/*@supports (-webkit-mask: none) and (not (cater-color: $cursor)) {*/-->
-<!--/*  .login-container .el-input input {*/-->
+<!--/*  .loginURL-container .el-input input {*/-->
 <!--/*    color: $cursor;*/-->
 <!--/*  }*/-->
 <!--/*}*/-->
-<!--/*.login-container .el-input input {*/-->
+<!--/*.loginURL-container .el-input input {*/-->
 <!--/*    color: #fff;*/-->
 <!--/*}*/-->
 <!--/*    !* reset element-ui css *!*/-->
-<!--/*.login-container {*/-->
+<!--/*.loginURL-container {*/-->
 <!--/*  &#45;&#45;bg:#283443;*/-->
 <!--/*  &#45;&#45;light_gray:#fff;*/-->
 <!--/*  &#45;&#45;cursor: #fff;*/-->

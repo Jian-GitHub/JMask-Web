@@ -184,8 +184,8 @@ export default {
 }
 
 #JMaskAIVideo {
-  height: 100vh;
-  /*width: 100vw;*/
+  /*height: 110vh;*/
+  width: 110vw;
   position: relative;
   left: 0%;
   transform: translate(0%, 0);

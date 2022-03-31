@@ -57,7 +57,7 @@
                       :src="passwordType === 'password' ? '/store/images/no_eye.svg' : '/store/images/eye.svg'"/>
         </span>
         </el-form-item>
-        <el-form-item prop="password2">
+        <el-form-item prop="confirmPassword">
         <span class="svg-container">
 <!--          <svg-icon icon-class="password"/>-->
           <svg width="30px" height="30px" class="icon" viewBox="0 -250 1500 1024" xmlns="http://www.w3.org/2000/svg"
@@ -68,20 +68,20 @@
           </svg>
         </span>
           <el-input
-              :key="passwordType2"
-              ref="password2"
-              v-model="registrationForm.password2"
-              :type="passwordType2"
+              :key="confirmPasswordType"
+              ref="confirmPassword"
+              v-model="registrationForm.confirmPassword"
+              :type="confirmPasswordType"
               placeholder="请确认密码"
-              name="password"
+              name="confirmPassword"
               tabindex="3"
               auto-complete="on"
               @keyup.enter="handleRegistration"
           />
           <span class="show-pwd" @click="showPwd(2)">
             <el-image style="position: absolute;width: 20px;height: 20px;"
-                      :src="passwordType2 === 'password' ? '/store/images/no_eye.svg' : '/store/images/eye.svg'"/>
-        </span>
+                      :src="confirmPasswordType === 'password' ? '/store/images/no_eye.svg' : '/store/images/eye.svg'"/>
+          </span>
         </el-form-item>
 
         <el-button :loading="loading" type="primary" style="width:100%;margin-bottom:30px;"
@@ -89,8 +89,7 @@
         </el-button>
 
       </div>
-      <span class="tips" style="font-weight:bold;float:right">已有账号？<a style="font-weight:bold;color: #6fd1ff"
-                                                                      href="/JMask/Login">点我登录</a></span>
+      <span class="tips" style="font-weight:bold;float:right">已有账号？<a style="font-weight:bold;color: #6fd1ff;cursor: pointer;user-select: none;" @click="$router.push({path: '/JMask/Login'})">点我登录</a></span>
 
     </el-form>
   </div>
@@ -108,8 +107,8 @@ export default {
   name: 'Registration',
   data() {
     const validateUsername = (rule, value, callback) => {
-      if (value.length < 1) {
-        callback(new Error('请输入用户名\nPlease enter the correct user name'))
+      if (value.length < 2 || value.length > 15) {
+        callback(new Error('用户名需在2至15位之间'))
       } else if (value === this.hasUserName) {
         callback(new Error('用户名已存在'))
       } else {
@@ -117,15 +116,15 @@ export default {
       }
     }
     const validatePassword = (rule, value, callback) => {
-      if (value.length < 8 && value.length > 15) {
+      if (value.length < 8 || value.length > 15) {
         callback(new Error('密码需在8位与15位之间'))
       } else {
         callback()
       }
     }
-    const validate2Password = (rule, value, callback) => {
+    const validateConfirmPassword = (rule, value, callback) => {
       // if (value.length < 10) {
-      if (value.length < 8 && value.length > 15) {
+      if (value.length < 8 || value.length > 15) {
         callback(new Error('密码需在8位与15位之间'))
       } else if (value != this.registrationForm.password) {
         callback(new Error('两次密码不一致'))
@@ -138,16 +137,16 @@ export default {
       registrationForm: {
         username: '',
         password: '',
-        password2: ''
+        confirmPassword: ''
       },
       registrationRules: {
         username: [{required: true, trigger: 'blur', validator: validateUsername}],
         password: [{required: true, trigger: 'blur', validator: validatePassword}],
-        password2: [{required: true, trigger: 'blur', validator: validate2Password}]
+        confirmPassword: [{required: true, trigger: 'blur', validator: validateConfirmPassword}]
       },
       loading: false,
       passwordType: 'password',
-      passwordType2: 'password',
+      confirmPasswordType: 'password',
       redirect: undefined
     }
   },
@@ -161,10 +160,10 @@ export default {
   },
   methods: {
     showPwd(passwordIndex) {
-      if (passwordIndex != 2 ? this.passwordType === 'password' : this.passwordType2 === 'password') {
-        passwordIndex != 2 ? this.passwordType = '' : this.passwordType2 = '';
+      if (passwordIndex != 2 ? this.passwordType === 'password' : this.confirmPasswordType === 'password') {
+        passwordIndex != 2 ? this.passwordType = '' : this.confirmPasswordType = '';
       } else {
-        passwordIndex != 2 ? this.passwordType = 'password' : this.passwordType2 = 'password';
+        passwordIndex != 2 ? this.passwordType = 'password' : this.confirmPasswordType = 'password';
       }
       this.$nextTick(() => {
         passwordIndex != 2 ? this.$refs.password.focus() : this.$refs.password2.focus();
@@ -201,6 +200,8 @@ export default {
       // console.log(this.getNowFormatDate())
       this.$refs.registrationForm.validate(valid => {
         // alert(valid)
+        // console.log('valid')
+        // console.log(valid)
         if (valid) {
           this.loading = true;
           // console.log('check')

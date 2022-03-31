@@ -6,69 +6,74 @@
         <!--        <div>-->
         <!--        你好,这是左。-->
         <!--        </div>-->
-        <el-upload
-            v-show="isShow"
-            class="el-upload"
-            :action="dealImg"
-            list-type="picture-card"
-            :auto-upload="true"
-            :before-upload="beforeAvatarUpload"
-            :on-success="onSuccess"
-        >
-          <template #default>
-            <el-icon>
-              <plus/>
-            </el-icon>
-          </template>
-          <template #file="{ file }">
-            <div>
-              <el-image class="el-upload-list__item-thumbnail" :src="file.url" alt=""/>
-              <span class="el-upload-list__item-actions">
-          <span
-              class="el-upload-list__item-preview"
-              @click="handlePictureCardPreview(file)"
+        <div>
+          <el-upload
+              v-show="isShow"
+              class="el-upload"
+              :action="dealImg"
+              list-type="picture-card"
+              :auto-upload="true"
+              :before-upload="beforeAvatarUpload"
+              :on-success="onSuccess"
           >
-        <el-icon><zoom-in/></el-icon>
-          </span>
-          <span
-              v-if="!disabled"
-              class="el-upload-list__item-delete"
-              @click="handleDownload(file)"
-          >
-            <el-icon><download/></el-icon>
-          </span>
-          <span
-              v-if="!disabled"
-              class="el-upload-list__item-delete"
-              @click="handleRemove(file)"
-          >
-            <el-icon><delete/></el-icon>
-          </span>
-        </span>
-            </div>
-          </template>
-        </el-upload>
+            <template #default>
+              <el-icon>
+                <plus/>
+              </el-icon>
+            </template>
+            <template #file="{ file }">
+              <div>
+                <el-image class="el-upload-list__item-thumbnail" :src="file.url" alt=""/>
+                <span class="el-upload-list__item-actions">
+                    <span
+                        class="el-upload-list__item-preview"
+                        @click="handlePictureCardPreview(file)"
+                    >
+                  <el-icon><zoom-in/></el-icon>
+                    </span>
+                  <span
+                      v-if="!disabled"
+                      class="el-upload-list__item-delete"
+                      @click="handleDownload(file)"
+                  >
+                    <el-icon><download/></el-icon>
+                  </span>
+                  <span
+                      v-if="!disabled"
+                      class="el-upload-list__item-delete"
+                      @click="handleRemove(file)"
+                  >
+                    <el-icon><delete/></el-icon>
+                  </span>
+                </span>
+              </div>
+            </template>
+          </el-upload>
+          <div v-show="isShow" class="tips">
+            <span>请上传小于10M且为jpg格式的人脸图片</span>
+          </div>
 
-        <el-image v-show="!isShow" class="upload-img"
-                  style="width:550px;height:320px;"
-                  fit="scale-down"
-                  :src="dialogImageUrl"
-                  alt=""
-        />
+          <el-image v-show="!isShow" class="upload-img"
+                    style="width:550px;height:320px;"
+                    fit="scale-down"
+                    :src="dialogImageUrl"
+                    alt=""
+          />
 
-        <el-dialog v-model="dialogVisible">
-          <el-image fit="contain" width="100%" :src="dialogImageUrl" alt=""/>
-        </el-dialog>
+          <el-dialog v-model="dialogVisible">
+            <el-image fit="contain" width="100%" :src="dialogImageUrl" alt=""/>
+          </el-dialog>
+        </div>
       </div>
 
 
       <div id="right-content" :v-loading="loading">
-<!--        你好,这是右。-->
-<!--        <el-image-->
-<!--            class="upload-img"-->
-<!--            style="width:550px;height:320px;"-->
-<!--            fit="scale-down"-->
-<!--            src="/store/images/noImg.svg"></el-image>-->
+        <!--        你好,这是右。-->
+        <!--        <el-image-->
+        <!--            class="upload-img"-->
+        <!--            style="width:550px;height:320px;"-->
+        <!--            fit="scale-down"-->
+        <!--            src="/store/images/noImg.svg"></el-image>-->
         <el-image
             class="upload-img"
             style="width:550px;height:320px;"
@@ -97,7 +102,7 @@ export default {
   },
   data() {
     return {
-      dealImg: store.urls.dealImg,
+      dealImg: store.urls.dealImgURL,
       fileURL: ref(null),
       dialogImageUrl: '',
       dialogVisible: false,
@@ -110,22 +115,21 @@ export default {
   methods: {
     onSuccess(response, file, fileList) {
       fileList
-      if(response === ""){
+      if (response === "") {
         this.resultImgData = '/store/images/error.svg';
         this.dialogImageUrl = '';
-      }else {
+      } else {
         // console.log(response);
         this.resultImgData = 'data:image/jpg;base64,' + response;
         this.dialogImageUrl = file.url;
       }
-      this.isShow = false;
       this.loading = false;
     },
     handleRemove(file) {
       console.log(file)
     },
     handlePictureCardPreview(file) {
-      console.log(file.url);
+      // console.log(file.url);
       this.dialogImageUrl = file.url
       this.dialogVisible = true
     },
@@ -136,6 +140,7 @@ export default {
       // this.dialogImageUrl = file.url;
       // console.log(file.raw.url)
       this.loading = true;
+      this.isShow = false;
       const isJPG = file.type === 'image/jpeg';// || file.type === 'image/png'
       const isLt10M = file.size / 1024 / 1024 < 10
 
@@ -243,6 +248,15 @@ export default {
   align-items: center;
   display: flex;
   justify-content: center;
+}
+
+.tips {
+  /*position: absolute;*/
+  /*z-index: 99;*/
+  color: dimgray;
+  margin-top: 15px;
+  font-weight: bold;
+  font-size: 12px;
 }
 
 /*#closeButton {*/
