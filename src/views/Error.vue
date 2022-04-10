@@ -10,8 +10,8 @@ export default {
     this.$alert('登录信息失效!','提示',{
       confirmButtonText: '确定'
     }).then((response)=>{
-      localStorage.removeItem('access-admin')
-      _this.$router.replace({path:'/loginURL'})
+      localStorage.removeItem('token')
+      _this.$router.replace({path:'/JMask/Login'})
     })
   }
 }

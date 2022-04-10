@@ -18,3 +18,13 @@ export const openInfoNotification = (title, message, showClose = false) => {
         duration: 2500
     })
 }
+
+export const openErrorNotification = (title, message, showClose = false) => {
+    ElNotification({
+        title: title,
+        message: message,
+        type: 'error',
+        showClose: showClose,
+        duration: 2500
+    })
+}

@@ -121,3 +121,28 @@ export function uploadAvatarAPI(file) {
         })
     )
 }
+
+//获取JMask App 与 Web 功能对比表
+export function getCompareAppWebAPI() {
+    return axios.get(
+        store.urls.getCompareAppWebURL
+    )
+}
+
+//获取JMask App信息表
+export function getJMaskAppInfoAPI() {
+    return axios.get(
+        store.urls.getJMaskAppInfoURL
+    )
+}
+
+//获取用户识别记录表
+export function getUserLogAPI(startIndex) {
+    return axios.post(
+        store.urls.getLogURL,
+        qs.stringify({
+            token: JSON.parse(window.localStorage.getItem('token')),
+            startIndex: startIndex
+        })
+    )
+}

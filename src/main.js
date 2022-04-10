@@ -5,6 +5,7 @@ import VueAxios from 'vue-axios'
 import ElementPlus from 'element-plus'
 import 'element-plus/dist/index.css'
 import router from "./router";
+// import elTableInfiniteScroll from 'el-table-infinite-scroll';
 // import {Expand, ChatRound} from '@element-plus/icons-vue'
 
 
@@ -15,6 +16,7 @@ const app = createApp(App)
 app.use(router)
 app.use(VueAxios, axios)
 app.use(ElementPlus)
+// app.use(elTableInfiniteScroll)
 
 // app.component('Expand', Expand)
 // app.component('chat-round', ChatRound)

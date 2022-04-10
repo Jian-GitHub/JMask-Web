@@ -179,13 +179,15 @@ export default {
   position: sticky;
   top: 0;
   height: 100vh;
+  /*width: 100vw;*/
   overflow: hidden;
   background-color: transparent;
+  margin-top: 44px;
 }
 
 #JMaskAIVideo {
-  /*height: 110vh;*/
-  width: 110vw;
+  height: 100vh;
+  /*width: 100vw;*/
   position: relative;
   left: 0%;
   transform: translate(0%, 0);

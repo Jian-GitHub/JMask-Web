@@ -2,7 +2,7 @@
   <div class="JMaskPage">
     <div>
       <el-menu
-          v-if="this.$router.currentRoute.value.path.toLowerCase() !== '/jmask/loginURL' && this.$router.currentRoute.value.path.toLowerCase() !== '/jmask/registrationURL'"
+          v-if="this.$router.currentRoute.value.path.toLowerCase() !== '/jmask/login' && this.$router.currentRoute.value.path.toLowerCase() !== '/jmask/registration'"
           id="menu"
           :default-active="activeIndex"
           class="el-menu-demo"
@@ -52,25 +52,9 @@
 </template>
 
 <script>
-// export default {
-//   name: "JMask",
-//   data() {
-//     return {
-//       backgroundColor: "#545c64",
-//       textColor: "#fff",
-//       activeTextColor: "#ffd04b"
-//     }
-//   },
-//   methods: {
-//     handleSelect: function (key, keyPath) {
-//       console.log(key, keyPath)
-//     }
-//   }
-// }
-
 import {defineComponent, onMounted, ref} from 'vue'
 import router from "@/router";
-import {openInfoNotification} from "@/utils/Notification";
+// import {openInfoNotification} from "@/utils/Notification";
 
 export default defineComponent({
   name: "JMask",
@@ -98,20 +82,28 @@ export default defineComponent({
       switch (key) {
         case '1':
           router.push({path: '/JMask/Home'})
-          this.menu.style.paddingRight = '0px';
+          if (this.menu != null) {
+            this.menu.style.paddingRight = '0px';
+          }
           break;
         case '2':
           router.push({path: '/JMask/Online'});
-          this.menu.style.paddingRight = this.scrollbarWidth + 'px';
+          if (this.menu != null) {
+            this.menu.style.paddingRight = this.scrollbarWidth + 'px';
+          }
           break;
         case '3':
           router.push({path: '/JMask/Download'})
-          this.menu.style.paddingRight = this.scrollbarWidth + 'px';
-          openInfoNotification('提示', '下载功能暂未开放', true);
+          if (this.menu != null) {
+            this.menu.style.paddingRight = this.scrollbarWidth + 'px';
+          }
+          // openInfoNotification('提示', '下载功能暂未开放', true);
           break;
         case '4':
-          router.push({path: '/JMask/User'})
-          this.menu.style.paddingRight = this.scrollbarWidth + 'px';
+          router.push({path: '/JMask/Account/Manage'})
+          if (this.menu != null) {
+            this.menu.style.paddingRight = this.scrollbarWidth + 'px';
+          }
           break;
       }
       keyPath
@@ -158,7 +150,6 @@ export default defineComponent({
 </script>
 
 <style scoped>
-
 .JMaskPage {
   /*background-color: #000;*/
   /*position: absolute;*/

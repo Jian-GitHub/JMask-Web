@@ -89,6 +89,7 @@
 import {login} from "@/api/api";
 import router from "@/router";
 import store from "@/store"
+import {openErrorNotification} from "@/utils/Notification"
 
 export default {
   name: 'Login',
@@ -102,7 +103,7 @@ export default {
     }
     const validatePassword = (rule, value, callback) => {
       if (value.length < 8 || value.length > 15) {
-        callback(new Error('密码位数需大于8位\nThe password can not be less than 6 digits'))
+        callback(new Error('密码位数需大于8位'))
       } else {
         callback()
       }
@@ -146,22 +147,25 @@ export default {
           this.loading = true
           login(this.loginForm).then((response => {
             if (response.data.code === store.statusCode.SUCCESS && response.data.data.token != '' && response.data.data.token != null) {
-              store.token = response.data.data.token;
+              // store.token = response.data.data.token;
               this.loading = false
               localStorage.setItem('token', JSON.stringify(response.data.data.token));
               let toURL = window.localStorage.getItem('toPath') ? window.localStorage.getItem('toPath') : '/JMask/Home';
+              // let toURL = store.toPath !== '' ? store.toPath : '/JMask/Home';
               if (window.localStorage.getItem('toPath')) {
-                window.localStorage.removeItem('toPath');
+                window.localStorage.removeItem('toPath')
               }
               // store.userName = this.loginForm.username;
               router.push({path: toURL});
             } else {
-              alert('登录失败')
+              // alert('登录失败')
+              openErrorNotification('登录失败', '用户名或密码有误')
               this.loading = false
             }
           }))
         } else {
-          alert('登录错误\nerror submit!!')
+          // alert('登录错误\nerror submit!!')
+          openErrorNotification('登录失败', '服务器错误')
           return false
         }
       })

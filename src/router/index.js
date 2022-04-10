@@ -1,6 +1,7 @@
 import {createRouter, createWebHistory} from "vue-router";
 import {checkToken} from "@/api/api";
 import store from "@/store";
+import {openInfoNotification} from "@/utils/Notification";
 
 // 1. 定义路由组件.
 // 也可以从其他文件导入
@@ -59,7 +60,7 @@ const routes = [
                 }
             },
             {
-                path: '/JMask/User',
+                path: '/JMask/Account/Manage',
                 component: User,
                 meta:{
                     title: 'JMask 个人中心'
@@ -79,10 +80,11 @@ const routes = [
     //     // name: Online,
     //     component: Online
     // },
-    // {
-    //     path: '/:pathMatch(.*)*',
-    //     component: NotFound
-    // }
+    {
+        path: '/:pathMatch(.*)*',
+        redirect: '/JMask'
+        // component: Home//NotFound
+    }
 ]
 
 // 3. 创建路由实例并传递 `routes` 配置
@@ -99,23 +101,28 @@ router.beforeEach((to, from, next) => {
     //     window.localStorage.removeItem('access-admin')
     //     next()
     // }
-    if (to.path.toLowerCase() === '/jmask/loginURL'){
-        window.localStorage.removeItem('token');
-        store.userName = '';
+    if (to.path.toLowerCase() === '/jmask/login'){
+        localStorage.removeItem('token');
+        // store.token = '';
+        // store.userName = '';
         document.title = 'JMask 登录';
         next();
-    }else if (to.path.toLowerCase() === '/jmask/user') {
+    }else if (to.path.toLowerCase() === '/jmask/account/manage') {
         let token = JSON.parse(window.localStorage.getItem('token'))
+        // let token = store.token
         if (!token) {
-            window.localStorage.setItem('toPath', to.path)
+            localStorage.setItem('toPath', to.path)
+            store.toPath = to.path;
             next({path: '/JMask/Login'})
             document.title = 'JMask 登录';
         } else {
             //检验token合法性
             checkToken().then((response) => {
                 if (response.data.code == store.statusCode.ERROR) {
-                    console.log("检验失败")
+                    // console.log("检验失败")
+                    openInfoNotification('登录信息失效', '请重新登录')
                     // next({path: '/error'})
+                    localStorage.setItem('toPath', to.path)
                     next({path: '/JMask/Login'})
                     document.title = 'JMask 登录';
                 }else{
