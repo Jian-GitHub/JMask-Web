@@ -8,7 +8,7 @@
       </div>
 
 
-      <div >
+      <div>
         <el-form-item prop="username">
         <span class="svg-container">
 <!--          <svg-icon icon-class="user"/>-->
@@ -53,14 +53,15 @@
           />
           <span class="show-pwd" @click="showPwd">
 <!--          <svg-icon :icon-class="oldPassWordType === 'password' ? 'eye' : 'eye-open'"/>-->
-<!--            <svg t="1648359071583" class="icon" viewBox="0 0 1024 1024" xmlns="http://www.w3.org/2000/svg" width="200" height="200">-->
-<!--              <path d="-->
-<!--              M942.2 486.2C847.4 286.5 704.1 186 512 186c-192.2 0-335.4 100.5-430.2 300.3-7.7 16.2-7.7 35.2 0 51.5C176.6 737.5 319.9 838 512 838c192.2 0 335.4-100.5 430.2-300.3 7.7-16.2 7.7-35 0-51.5zM512 766c-161.3 0-279.4-81.8-362.7-254C232.6 339.8 350.7 258 512 258c161.3 0 279.4 81.8 362.7 254C791.5 684.2 673.4 766 512 766z" p-id="2174"></path>-->
-<!--              <path d="M508 336c-97.2 0-176 78.8-176 176s78.8 176 176 176 176-78.8 176-176-78.8-176-176-176z m0 288c-61.9 0-112-50.1-112-112s50.1-112 112-112 112 50.1 112 112-50.1 112-112 112z-->
-<!--" p-id="2175"></path>-->
-<!--            </svg>-->
-<!--            <svg-icon name="no_eye"/>-->
-            <el-image style="position: absolute;width: 20px;height: 20px;" :src="passwordType === 'password' ? '/store/images/no_eye.svg' : '/store/images/eye.svg'"/>
+            <!--            <svg t="1648359071583" class="icon" viewBox="0 0 1024 1024" xmlns="http://www.w3.org/2000/svg" width="200" height="200">-->
+            <!--              <path d="-->
+            <!--              M942.2 486.2C847.4 286.5 704.1 186 512 186c-192.2 0-335.4 100.5-430.2 300.3-7.7 16.2-7.7 35.2 0 51.5C176.6 737.5 319.9 838 512 838c192.2 0 335.4-100.5 430.2-300.3 7.7-16.2 7.7-35 0-51.5zM512 766c-161.3 0-279.4-81.8-362.7-254C232.6 339.8 350.7 258 512 258c161.3 0 279.4 81.8 362.7 254C791.5 684.2 673.4 766 512 766z" p-id="2174"></path>-->
+            <!--              <path d="M508 336c-97.2 0-176 78.8-176 176s78.8 176 176 176 176-78.8 176-176-78.8-176-176-176z m0 288c-61.9 0-112-50.1-112-112s50.1-112 112-112 112 50.1 112 112-50.1 112-112 112z-->
+            <!--" p-id="2175"></path>-->
+            <!--            </svg>-->
+            <!--            <svg-icon name="no_eye"/>-->
+            <el-image style="position: absolute;width: 20px;height: 20px;"
+                      :src="passwordType === 'password' ? '/store/images/no_eye.svg' : '/store/images/eye.svg'"/>
         </span>
         </el-form-item>
 
@@ -68,18 +69,30 @@
                    @click.enter.prevent="handleLogin">登录
         </el-button>
 
-<!--        <div class="tips">-->
-<!--          <span style="margin-right:20px;">用户名: admin</span>-->
-<!--          <span style="margin-right:20px;"> 密码: 123456</span>-->
-<!--          <span>权限: 管理员（所有页面）</span>-->
-<!--        </div>-->
-<!--        <div class="tips">-->
-<!--          <span style="margin-right:35px;">用户名: user</span>-->
-<!--          <span style="margin-right:20px;">密码: 123456</span>-->
-<!--          <span>权限: 普通用户（无采集页）</span>-->
-<!--        </div>-->
+        <!--        <div class="tips">-->
+        <!--          <span style="margin-right:20px;">用户名: admin</span>-->
+        <!--          <span style="margin-right:20px;"> 密码: 123456</span>-->
+        <!--          <span>权限: 管理员（所有页面）</span>-->
+        <!--        </div>-->
+        <!--        <div class="tips">-->
+        <!--          <span style="margin-right:35px;">用户名: user</span>-->
+        <!--          <span style="margin-right:20px;">密码: 123456</span>-->
+        <!--          <span>权限: 普通用户（无采集页）</span>-->
+        <!--        </div>-->
       </div>
-      <span class="tips" style="font-weight:bold;float:right">没有账号？<a style="font-weight:bold;color: #6fd1ff;cursor: pointer;user-select: none;" @click="$router.push({path: '/JMask/Registration'})">点我注册</a></span>
+      <span class="tips" style="font-weight:bold;float:right">没有账号？<a
+          style="font-weight:bold;color: #6fd1ff;cursor: pointer;user-select: none;"
+          @click="$router.push({path: '/JMask/Registration'})">点我注册</a></span>
+
+      <a class="tips" style="display: flex;float:left;margin-left: 1px;justify-content: center" @click="goBack">
+        <svg t="1649821401636" class="icon" viewBox="0 0 1024 1024" xmlns="http://www.w3.org/2000/svg" p-id="2792" width="19" height="19">
+          <path fill="white" d="M180.864 277.5808c-16.25088 12.288-16.25088 36.7104 0 48.9984L321.9456 433.31072c20.23424 15.3088 49.2544 0.87552 49.2544-24.4992V343.04h201.77408c118.48192 0 214.53312 89.3952 214.53312 199.68 0 110.27968-96.0512 199.68-214.53312 199.68H240.64a30.72 30.72 0 0 0-30.72 30.72v20.48a30.72 30.72 0 0 0 30.72 30.72h332.33408C740.06528 824.32 875.52 698.24512 875.52 542.72s-135.45472-281.6-302.54592-281.6H371.2V195.34848c0-25.37472-29.02016-39.808-49.2544-24.4992L180.864 277.5808z" p-id="2793"></path>
+        </svg>
+        <span
+            style="font-weight:bold;color: white;cursor: pointer;user-select: none;margin-left: 1px;font-size: 14px;font-weight: bold">
+          返回主页
+        </span>
+      </a>
 
     </el-form>
   </div>
@@ -131,6 +144,9 @@ export default {
     }
   },
   methods: {
+    goBack() {
+      this.$router.go(store.goBackNum)
+    },
     showPwd() {
       if (this.passwordType === 'password') {
         this.passwordType = ''
@@ -156,6 +172,7 @@ export default {
                 window.localStorage.removeItem('toPath')
               }
               // store.userName = this.loginForm.username;
+              this.changeJMaskMenuItem();
               router.push({path: toURL});
             } else {
               // alert('登录失败')
@@ -169,6 +186,13 @@ export default {
           return false
         }
       })
+    },
+    changeJMaskMenuItem() {
+      const onLineItemName = '在线使用';
+      this.$emit('JMaskTitleMenuItem', {
+        onLineItemName
+      })
+      // console.log('打印', onLineItemName)
     }
   }
 }

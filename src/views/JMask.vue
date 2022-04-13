@@ -4,17 +4,23 @@
       <el-menu
           v-if="this.$router.currentRoute.value.path.toLowerCase() !== '/jmask/login' && this.$router.currentRoute.value.path.toLowerCase() !== '/jmask/registration'"
           id="menu"
+          class="menu"
           :default-active="activeIndex"
-          class="el-menu-demo"
           mode="horizontal"
           :background-color="backgroundColor"
           :text-color="textColor"
           :active-text-color="textColor"
           @select="handleSelect"
       >
-        <el-menu-item index="1" style="margin-left: auto">JMask</el-menu-item>
-        <el-menu-item index="2">在线试用</el-menu-item>
-        <el-menu-item index="3" style="margin-right: auto">下载应用</el-menu-item>
+        <el-menu-item id="JMaskMenuItem" index="1" style="margin-left: auto;transform: translateX(50px)">
+          {{ JMaskTitleMenu.JMaskHomePage }}
+        </el-menu-item>
+        <el-menu-item index="2" style=";transform: translateX(50px)">
+          {{ JMaskTitleMenu.JMaskOnline }}
+        </el-menu-item>
+        <el-menu-item index="3" style="margin-right: auto;transform: translateX(50px)">
+          {{ JMaskTitleMenu.JMaskDownload }}
+        </el-menu-item>
 
         <!--        <el-sub-menu index="4" style="float: right;">-->
         <!--          <template #title>-->
@@ -34,7 +40,7 @@
         <!--        </el-sub-menu>-->
 
         <!--        <span style="margin-right: 5px;font-size: 12px;float: right">登录 / 注册</span>-->
-        <el-menu-item index="4" style="float: right;">
+        <el-menu-item id="accountMenuItem" index="4" style=";display:flex;float: right;">
           <svg class="icon" width="15px" height="15px" viewBox="0 0 1024 1024" xmlns="http://www.w3.org/2000/svg"
                data-v-365b8594="">
             <path fill="currentColor"
@@ -46,7 +52,7 @@
         <!--        <el-menu-item index="3" :disabled="true">Info</el-menu-item>-->
       </el-menu>
     </div>
-    <router-view id="view"></router-view>
+    <router-view id="view" @JMaskTitleMenuItem="JMaskTitleMenuItem"></router-view>
     <!--    <router-view></router-view>-->
   </div>
 </template>
@@ -54,7 +60,9 @@
 <script>
 import {defineComponent, onMounted, ref} from 'vue'
 import router from "@/router";
-// import {openInfoNotification} from "@/utils/Notification";
+// import {checkToken} from "@/api/api";
+// import store from "@/store";
+// // import {openInfoNotification} from "@/utils/Notification";
 
 export default defineComponent({
   name: "JMask",
@@ -68,6 +76,11 @@ export default defineComponent({
   },
   data() {
     return {
+      JMaskTitleMenu: {
+        JMaskHomePage: 'JMask',
+        JMaskOnline: window.localStorage.getItem("token") ? "在线使用" : '在线试用',
+        JMaskDownload: '下载应用'
+      },
       // JMaskPage : true
       backgroundColor: ref('#333333'),
       textColor: ref('#fff'),
@@ -82,32 +95,37 @@ export default defineComponent({
       switch (key) {
         case '1':
           router.push({path: '/JMask/Home'})
-          if (this.menu != null) {
-            this.menu.style.paddingRight = '0px';
-          }
+          // if (this.menu != null) {
+          //   this.menu.style.paddingRight = '0px';
+          // }
           break;
         case '2':
           router.push({path: '/JMask/Online'});
-          if (this.menu != null) {
-            this.menu.style.paddingRight = this.scrollbarWidth + 'px';
-          }
+          // if (this.menu != null) {
+          //   this.menu.style.paddingRight = this.scrollbarWidth + 'px';
+          // }
           break;
         case '3':
           router.push({path: '/JMask/Download'})
-          if (this.menu != null) {
-            this.menu.style.paddingRight = this.scrollbarWidth + 'px';
-          }
+          // if (this.menu != null) {
+          //   this.menu.style.paddingRight = this.scrollbarWidth + 'px';
+          // }
           // openInfoNotification('提示', '下载功能暂未开放', true);
           break;
         case '4':
           router.push({path: '/JMask/Account/Manage'})
-          if (this.menu != null) {
-            this.menu.style.paddingRight = this.scrollbarWidth + 'px';
-          }
+          // if (this.menu != null) {
+          //   this.menu.style.paddingRight = this.scrollbarWidth + 'px';
+          // }
           break;
       }
       keyPath
       // console.log('key:' + key + '===' + 'keyPath: ' + keyPath)
+    },
+    JMaskTitleMenuItem(arg) {
+      // console.log('接收')
+      // console.log(arg.onLineItemName)
+      this.JMaskTitleMenu.JMaskOnline = arg.onLineItemName
     }
   },
   setup() {
@@ -162,16 +180,17 @@ export default defineComponent({
   /*box-sizing: border-box;*/
 }
 
-#menu {
+.menu {
   position: fixed;
   border-bottom-color: #333333;
   /*margin-right: auto;*/
   /*margin-left: auto;*/
+  display: flex;
   width: 100%;
   top: 0;
   align-items: center;
-  display: flex;
-  justify-content: center;
+  /*text-align: center;*/
+  /*justify-content: center;*/
   height: 44px;
   overflow: hidden;
   z-index: 1001;

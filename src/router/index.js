@@ -35,7 +35,7 @@ const routes = [
                 // name: 'Online',
                 component: Online,
                 meta:{
-                    title: 'JMask 在线试用'
+                    title: window.localStorage.getItem('token') ? 'JMask 在线使用' : 'JMask 在线试用'
                 }
             },
             {
@@ -134,7 +134,10 @@ router.beforeEach((to, from, next) => {
                 }
             })
         }
-    } else {
+    }else if(to.path.toLowerCase() === '/jmask/online'){
+        document.title = window.localStorage.getItem('token') ? 'JMask 在线使用' : 'JMask 在线试用'
+        next()
+    }else {
         if (to.meta.title) {
             document.title = to.meta.title
         }

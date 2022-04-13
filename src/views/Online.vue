@@ -9,12 +9,13 @@
         <div>
           <el-upload
               v-show="isShow"
-              class="el-upload"
+              class="uploadImg"
               :action="dealImg"
               list-type="picture-card"
               :auto-upload="true"
               :before-upload="beforeAvatarUpload"
               :on-success="onSuccess"
+              :data="uploadParams()"
           >
             <template #default>
               <el-icon>
@@ -53,12 +54,29 @@
             <span>请上传小于10M且为jpg格式的人脸图片</span>
           </div>
 
-          <el-image v-show="!isShow" class="upload-img"
-                    style="width:550px;height:320px;"
-                    fit="scale-down"
-                    :src="dialogImageUrl"
-                    alt=""
-          />
+          <div>
+            <el-upload
+                v-show="!isShow"
+                ref="uploadRef"
+                :action="dealImg"
+                :show-file-list="false"
+                :on-success="onSuccess"
+                :before-upload="beforeAvatarUpload"
+                :data="uploadParams()"
+                title="重新上传"
+                style="max-height: 320px;max-width: 550px;cursor: none;user-select: none;"
+            >
+              <el-image
+                  class="upload-img"
+                  style="height: 320px;width: 550px;cursor: pointer;user-select: none;"
+                  fit="scale-down"
+                  :src="dialogImageUrl"
+                  alt=""
+              />
+            </el-upload>
+          </div>
+
+
 
           <el-dialog v-model="dialogVisible">
             <el-image fit="contain" width="100%" :src="dialogImageUrl" alt=""/>
@@ -91,7 +109,7 @@
 import {Plus, ZoomIn, Download, Delete} from '@element-plus/icons-vue'
 import {ref} from "vue";
 import store from "@/store"
-
+import {openErrorNotification, openInfoNotification} from "@/utils/Notification";
 export default {
   name: "Online",
   components: {
@@ -113,15 +131,28 @@ export default {
     }
   },
   methods: {
+    uploadParams() {
+      let params = {
+        token: window.localStorage.getItem("token") ? JSON.parse(window.localStorage.getItem("token")) : ''
+      }
+      return params;
+    },
     onSuccess(response, file, fileList) {
       fileList
-      if (response === "") {
-        this.resultImgData = '/store/images/error.svg';
-        this.dialogImageUrl = '';
+      if (response.code === store.statusCode.SUCCESS) {
+        this.resultImgData = 'data:image/jpg;base64,' + response.data.imageData;
+        this.dialogImageUrl = URL.createObjectURL(file.raw)//file.url;
+        // console.log("error" in response.data)
+        // console.log(Object.prototype.hasOwnProperty.call(response.data, "error"))
+        // console.log(response.data.error === undefined)
+        if (Object.prototype.hasOwnProperty.call(response.data, "error")) {
+          openInfoNotification('提示', response.data.error)
+        }
       } else {
         // console.log(response);
-        this.resultImgData = 'data:image/jpg;base64,' + response;
-        this.dialogImageUrl = file.url;
+        this.resultImgData = '/store/images/error.svg';
+        this.dialogImageUrl = '';
+        openErrorNotification('失败', response.data.error);
       }
       this.loading = false;
     },
@@ -241,7 +272,7 @@ export default {
   height: 300px;
 }
 
-.el-upload {
+.uploadImg {
   width: 100%;
   height: 100%;
   /*margin-left: 20px;*/

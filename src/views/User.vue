@@ -434,16 +434,18 @@
           </span>
         </div>
 
-        <div class="dialog-footer" v-loading="listLoading" style="height: 250px;overflow:scroll;">
+        <div class="dialog-footer" v-loading="listLoading" style="height: 250px;overflow:hidden;">
           <el-table
               class="logTable"
               ref="logTable"
               :data="logList"
-              style="width: 100%;overflow: scroll"
+              style="width: 100%;"
               height="250"
-              :infinite-scroll-delay="10000"
-              :infinite-scroll-immediate="false"
           >
+<!--
+              :infinite-scroll-delay="700"
+              :infinite-scroll-immediate="false"
+              v-infinite-scroll="logLoad"-->
             <el-table-column prop="date" align="center" min-width="200">
               <template #header>
                 <div>
@@ -466,6 +468,7 @@
               <template #default="scope">
                 <div>
                   <el-image
+                      lazy
                       class="upload-img"
                       fit="scale-down"
                       style="max-height: 100px;width: auto"
