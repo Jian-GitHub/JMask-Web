@@ -1,6 +1,6 @@
 /**
  * @description base64编码方法
- * @param val 需要编码的字符串
+ * @param str 需要编码的字符串
  * @return 返回编码好的base64字符串
  *	中文进行编码时，需要使用base64Encode(encodeURIComponent(a))
  */

@@ -85,7 +85,7 @@
       </div>
 
 
-      <div id="right-content" :v-loading="loading">
+      <div id="right-content">
         <!--        你好,这是右。-->
         <!--        <el-image-->
         <!--            class="upload-img"-->
@@ -93,6 +93,7 @@
         <!--            fit="scale-down"-->
         <!--            src="/store/images/noImg.svg"></el-image>-->
         <el-image
+            :v-loading="loading"
             class="upload-img"
             style="width:550px;height:320px;"
             fit="scale-down"
@@ -132,13 +133,12 @@ export default {
   },
   methods: {
     uploadParams() {
-      let params = {
+      return {
         token: window.localStorage.getItem("token") ? JSON.parse(window.localStorage.getItem("token")) : ''
-      }
-      return params;
+      };
     },
-    onSuccess(response, file, fileList) {
-      fileList
+    onSuccess(response, file) {
+      // fileList
       if (response.code === store.statusCode.SUCCESS) {
         this.resultImgData = 'data:image/jpg;base64,' + response.data.imageData;
         this.dialogImageUrl = URL.createObjectURL(file.raw)//file.url;

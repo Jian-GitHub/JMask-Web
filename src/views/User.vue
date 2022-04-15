@@ -25,10 +25,11 @@
               title="点击上传头像"
           >
             <el-avatar class="userAvatar" :size="80" :src="avatarURL">
-              <span v-if="avatarURL == ''">{{ userName }}</span>
+              <span v-if="avatarURL === ''">{{ userName }}</span>
               <img
-                  v-if="avatarURL != ''"
+                  v-if="avatarURL !== ''"
                   :src="avatarURL"
+                  alt
               />
             </el-avatar>
           </el-upload>
@@ -36,12 +37,12 @@
           <div style="margin-top: 5px">
             <div>
               <span class="userName">
-                <span v-if="userName == ''">加载中</span>
+                <span v-if="userName === ''">加载中</span>
                 {{ userName }}
               </span>
             </div>
             <div>
-              <span v-if="userID == ''">加载中</span>
+              <span v-if="userID === ''">加载中</span>
               <span class="userID" :title="userName+'的ID'">
                 {{ userID }}
               </span>
@@ -120,11 +121,10 @@
     >
       <div style="position: absolute;margin-top: -55px;margin-left: -10px">
         <el-button type="text" @click="cancelNewUserName">
-          <svg style="color: dimgray" width="15" height="15" t="1648606672924" class="icon" viewBox="0 0 1024 1024"
-               xmlns="http://www.w3.org/2000/svg" p-id="1476">
+          <svg style="color: dimgray" width="15" height="15" class="icon" viewBox="0 0 1024 1024"
+               xmlns="http://www.w3.org/2000/svg">
             <path fill="black"
-                  d="M887.2 774.2 624.8 510.8l263-260c10.8-10.8 10.8-28.4 0-39.2l-74.8-75.2c-5.2-5.2-12.2-8-19.6-8-7.4 0-14.4 3-19.6 8L512 395.6 249.8 136.6c-5.2-5.2-12.2-8-19.6-8-7.4 0-14.4 3-19.6 8L136 211.8c-10.8 10.8-10.8 28.4 0 39.2l263 260L136.8 774.2c-5.2 5.2-8.2 12.2-8.2 19.6 0 7.4 2.8 14.4 8.2 19.6l74.8 75.2c5.4 5.4 12.4 8.2 19.6 8.2 7 0 14.2-2.6 19.6-8.2L512 626.2l261.4 262.2c5.4 5.4 12.4 8.2 19.6 8.2 7 0 14.2-2.6 19.6-8.2l74.8-75.2c5.2-5.2 8.2-12.2 8.2-19.6C895.4 786.4 892.4 779.4 887.2 774.2z"
-                  p-id="1477">
+                  d="M887.2 774.2 624.8 510.8l263-260c10.8-10.8 10.8-28.4 0-39.2l-74.8-75.2c-5.2-5.2-12.2-8-19.6-8-7.4 0-14.4 3-19.6 8L512 395.6 249.8 136.6c-5.2-5.2-12.2-8-19.6-8-7.4 0-14.4 3-19.6 8L136 211.8c-10.8 10.8-10.8 28.4 0 39.2l263 260L136.8 774.2c-5.2 5.2-8.2 12.2-8.2 19.6 0 7.4 2.8 14.4 8.2 19.6l74.8 75.2c5.4 5.4 12.4 8.2 19.6 8.2 7 0 14.2-2.6 19.6-8.2L512 626.2l261.4 262.2c5.4 5.4 12.4 8.2 19.6 8.2 7 0 14.2-2.6 19.6-8.2l74.8-75.2c5.2-5.2 8.2-12.2 8.2-19.6C895.4 786.4 892.4 779.4 887.2 774.2z">
             </path>
           </svg>
         </el-button>
@@ -199,11 +199,10 @@
     >
       <div style="position: absolute;margin-top: -55px;margin-left: -10px">
         <el-button type="text" @click="cancelNewPassWord">
-          <svg style="color: dimgray" width="15" height="15" t="1648606672924" class="icon" viewBox="0 0 1024 1024"
-               xmlns="http://www.w3.org/2000/svg" p-id="1476">
+          <svg style="color: dimgray" width="15" height="15" class="icon" viewBox="0 0 1024 1024"
+               xmlns="http://www.w3.org/2000/svg">
             <path fill="black"
-                  d="M887.2 774.2 624.8 510.8l263-260c10.8-10.8 10.8-28.4 0-39.2l-74.8-75.2c-5.2-5.2-12.2-8-19.6-8-7.4 0-14.4 3-19.6 8L512 395.6 249.8 136.6c-5.2-5.2-12.2-8-19.6-8-7.4 0-14.4 3-19.6 8L136 211.8c-10.8 10.8-10.8 28.4 0 39.2l263 260L136.8 774.2c-5.2 5.2-8.2 12.2-8.2 19.6 0 7.4 2.8 14.4 8.2 19.6l74.8 75.2c5.4 5.4 12.4 8.2 19.6 8.2 7 0 14.2-2.6 19.6-8.2L512 626.2l261.4 262.2c5.4 5.4 12.4 8.2 19.6 8.2 7 0 14.2-2.6 19.6-8.2l74.8-75.2c5.2-5.2 8.2-12.2 8.2-19.6C895.4 786.4 892.4 779.4 887.2 774.2z"
-                  p-id="1477">
+                  d="M887.2 774.2 624.8 510.8l263-260c10.8-10.8 10.8-28.4 0-39.2l-74.8-75.2c-5.2-5.2-12.2-8-19.6-8-7.4 0-14.4 3-19.6 8L512 395.6 249.8 136.6c-5.2-5.2-12.2-8-19.6-8-7.4 0-14.4 3-19.6 8L136 211.8c-10.8 10.8-10.8 28.4 0 39.2l263 260L136.8 774.2c-5.2 5.2-8.2 12.2-8.2 19.6 0 7.4 2.8 14.4 8.2 19.6l74.8 75.2c5.4 5.4 12.4 8.2 19.6 8.2 7 0 14.2-2.6 19.6-8.2L512 626.2l261.4 262.2c5.4 5.4 12.4 8.2 19.6 8.2 7 0 14.2-2.6 19.6-8.2l74.8-75.2c5.2-5.2 8.2-12.2 8.2-19.6C895.4 786.4 892.4 779.4 887.2 774.2z">
             </path>
           </svg>
         </el-button>
@@ -231,7 +230,7 @@
                     v-model="newPassWordForm.oldPassWord"
                     maxlength="15"
                     placeholder="当前密码"
-                    :type="oldPassWordType == true ? 'password' : 'text'"
+                    :type="oldPassWordType === true ? 'password' : 'text'"
                     show-word-limit
                     name="oldPassWord"
                     tabindex="1"
@@ -240,7 +239,7 @@
                 />
                 <span class="show-pwd" @click="showPwd(1)">
                   <el-image style="position: absolute;width: 20px;height: 20px;"
-                            :src="oldPassWordType == true ? '/store/images/no_eye.svg' : '/store/images/eye.svg'"/>
+                            :src="oldPassWordType === true ? '/store/images/no_eye.svg' : '/store/images/eye.svg'"/>
                 </span>
               </el-form-item>
               <el-form-item prop="newPassWord">
@@ -250,7 +249,7 @@
                     v-model="newPassWordForm.newPassWord"
                     maxlength="15"
                     placeholder="新密码"
-                    :type="newPassWordType == true ? 'password' : 'text'"
+                    :type="newPassWordType === true ? 'password' : 'text'"
                     show-word-limit
                     name="newPassWord"
                     tabindex="2"
@@ -259,7 +258,7 @@
                 />
                 <span class="show-pwd" @click="showPwd(2)">
                   <el-image style="position: absolute;width: 20px;height: 20px;"
-                            :src="newPassWordType == true ? '/store/images/no_eye.svg' : '/store/images/eye.svg'"/>
+                            :src="newPassWordType === true ? '/store/images/no_eye.svg' : '/store/images/eye.svg'"/>
                 </span>
               </el-form-item>
               <el-form-item prop="confirmPassWord">
@@ -269,7 +268,7 @@
                     v-model="newPassWordForm.confirmPassWord"
                     maxlength="15"
                     placeholder="确认新密码"
-                    :type="confirmPassWordType == true ? 'password' : 'text'"
+                    :type="confirmPassWordType === true ? 'password' : 'text'"
                     show-word-limit
                     name="confirmPassWord"
                     tabindex="3"
@@ -278,7 +277,7 @@
                 />
                 <span class="show-pwd" @click="showPwd(3)">
                   <el-image style="position: absolute;width: 20px;height: 20px;"
-                            :src="confirmPassWordType == true ? '/store/images/no_eye.svg' : '/store/images/eye.svg'"/>
+                            :src="confirmPassWordType === true ? '/store/images/no_eye.svg' : '/store/images/eye.svg'"/>
                 </span>
               </el-form-item>
             </el-form>
@@ -320,11 +319,10 @@
     >
       <div style="position: absolute;margin-top: -55px;margin-left: -10px">
         <el-button type="text" @click="cancelRemoveAccount">
-          <svg style="color: dimgray" width="15" height="15" t="1648606672924" class="icon" viewBox="0 0 1024 1024"
-               xmlns="http://www.w3.org/2000/svg" p-id="1476">
+          <svg style="color: dimgray" width="15" height="15" class="icon" viewBox="0 0 1024 1024"
+               xmlns="http://www.w3.org/2000/svg">
             <path fill="black"
-                  d="M887.2 774.2 624.8 510.8l263-260c10.8-10.8 10.8-28.4 0-39.2l-74.8-75.2c-5.2-5.2-12.2-8-19.6-8-7.4 0-14.4 3-19.6 8L512 395.6 249.8 136.6c-5.2-5.2-12.2-8-19.6-8-7.4 0-14.4 3-19.6 8L136 211.8c-10.8 10.8-10.8 28.4 0 39.2l263 260L136.8 774.2c-5.2 5.2-8.2 12.2-8.2 19.6 0 7.4 2.8 14.4 8.2 19.6l74.8 75.2c5.4 5.4 12.4 8.2 19.6 8.2 7 0 14.2-2.6 19.6-8.2L512 626.2l261.4 262.2c5.4 5.4 12.4 8.2 19.6 8.2 7 0 14.2-2.6 19.6-8.2l74.8-75.2c5.2-5.2 8.2-12.2 8.2-19.6C895.4 786.4 892.4 779.4 887.2 774.2z"
-                  p-id="1477">
+                  d="M887.2 774.2 624.8 510.8l263-260c10.8-10.8 10.8-28.4 0-39.2l-74.8-75.2c-5.2-5.2-12.2-8-19.6-8-7.4 0-14.4 3-19.6 8L512 395.6 249.8 136.6c-5.2-5.2-12.2-8-19.6-8-7.4 0-14.4 3-19.6 8L136 211.8c-10.8 10.8-10.8 28.4 0 39.2l263 260L136.8 774.2c-5.2 5.2-8.2 12.2-8.2 19.6 0 7.4 2.8 14.4 8.2 19.6l74.8 75.2c5.4 5.4 12.4 8.2 19.6 8.2 7 0 14.2-2.6 19.6-8.2L512 626.2l261.4 262.2c5.4 5.4 12.4 8.2 19.6 8.2 7 0 14.2-2.6 19.6-8.2l74.8-75.2c5.2-5.2 8.2-12.2 8.2-19.6C895.4 786.4 892.4 779.4 887.2 774.2z">
             </path>
           </svg>
         </el-button>
@@ -365,7 +363,7 @@
                     v-model="removeAccountForm.passWord"
                     maxlength="15"
                     placeholder="密码"
-                    :type="newPassWordType == true ? 'password' : 'text'"
+                    :type="newPassWordType === true ? 'password' : 'text'"
                     name="passWord"
                     tabindex="2"
                     auto-complete="on"
@@ -373,7 +371,7 @@
                 />
                 <span class="show-pwd" @click="showPwd(2)">
                   <el-image style="position: absolute;width: 20px;height: 20px;"
-                            :src="newPassWordType == true ? '/store/images/no_eye.svg' : '/store/images/eye.svg'"/>
+                            :src="newPassWordType === true ? '/store/images/no_eye.svg' : '/store/images/eye.svg'"/>
                 </span>
               </el-form-item>
             </el-form>
@@ -416,11 +414,10 @@
     >
       <div style="position: absolute;margin-top: -55px;margin-left: -10px">
         <el-button type="text" @click="closeUserLog">
-          <svg style="color: dimgray" width="15" height="15" t="1648606672924" class="icon" viewBox="0 0 1024 1024"
-               xmlns="http://www.w3.org/2000/svg" p-id="1476">
+          <svg style="color: dimgray" width="15" height="15" class="icon" viewBox="0 0 1024 1024"
+               xmlns="http://www.w3.org/2000/svg">
             <path fill="black"
-                  d="M887.2 774.2 624.8 510.8l263-260c10.8-10.8 10.8-28.4 0-39.2l-74.8-75.2c-5.2-5.2-12.2-8-19.6-8-7.4 0-14.4 3-19.6 8L512 395.6 249.8 136.6c-5.2-5.2-12.2-8-19.6-8-7.4 0-14.4 3-19.6 8L136 211.8c-10.8 10.8-10.8 28.4 0 39.2l263 260L136.8 774.2c-5.2 5.2-8.2 12.2-8.2 19.6 0 7.4 2.8 14.4 8.2 19.6l74.8 75.2c5.4 5.4 12.4 8.2 19.6 8.2 7 0 14.2-2.6 19.6-8.2L512 626.2l261.4 262.2c5.4 5.4 12.4 8.2 19.6 8.2 7 0 14.2-2.6 19.6-8.2l74.8-75.2c5.2-5.2 8.2-12.2 8.2-19.6C895.4 786.4 892.4 779.4 887.2 774.2z"
-                  p-id="1477">
+                  d="M887.2 774.2 624.8 510.8l263-260c10.8-10.8 10.8-28.4 0-39.2l-74.8-75.2c-5.2-5.2-12.2-8-19.6-8-7.4 0-14.4 3-19.6 8L512 395.6 249.8 136.6c-5.2-5.2-12.2-8-19.6-8-7.4 0-14.4 3-19.6 8L136 211.8c-10.8 10.8-10.8 28.4 0 39.2l263 260L136.8 774.2c-5.2 5.2-8.2 12.2-8.2 19.6 0 7.4 2.8 14.4 8.2 19.6l74.8 75.2c5.4 5.4 12.4 8.2 19.6 8.2 7 0 14.2-2.6 19.6-8.2L512 626.2l261.4 262.2c5.4 5.4 12.4 8.2 19.6 8.2 7 0 14.2-2.6 19.6-8.2l74.8-75.2c5.2-5.2 8.2-12.2 8.2-19.6C895.4 786.4 892.4 779.4 887.2 774.2z">
             </path>
           </svg>
         </el-button>
@@ -434,7 +431,7 @@
           </span>
         </div>
 
-        <div class="dialog-footer" v-loading="listLoading" style="height: 250px;overflow:hidden;">
+        <div class="dialog-footer" v-loading="listLoading" style="height: 250px;">
           <el-table
               class="logTable"
               ref="logTable"
@@ -565,7 +562,7 @@ export default {
     const validateNewUsername = (rule, value, callback) => {
       if (value.length < 2 || value.length > 15) {
         callback(new Error('用户名需在2至15位之间'))
-      } else if (value == this.hasUserName) {
+      } else if (value === this.hasUserName) {
         callback(new Error('用户名已存在'))
         this.hasUserName = false;
       } else {
@@ -575,12 +572,12 @@ export default {
     const validateUsername = (rule, value, callback) => {
       if (value.length < 2 || value.length > 15) {
         callback(new Error('用户名需在2至15位之间'))
-      } else if (value == this.removeAccountInputErrorUserName) {
+      } else if (value === this.removeAccountInputErrorUserName) {
         callback(new Error('账户或密码有误'))
       } else {
         callback()
       }
-      if (value != this.removeAccountInputErrorUserName) {
+      if (value !== this.removeAccountInputErrorUserName) {
         this.removeAccountInputErrorPassWord = null;
       }
     }
@@ -589,7 +586,7 @@ export default {
       // console.log(value == this.errorPassWord)
       if (value.length < 8 || value.length > 15) {
         callback(new Error('密码需在8位与15位之间'))
-      } else if (value == this.errorPassWord) {
+      } else if (value === this.errorPassWord) {
         // console.log("密码不正确")
         callback(new Error('密码错误'))
       } else {
@@ -599,12 +596,12 @@ export default {
     const validatePassword = (rule, value, callback) => {
       if (value.length < 8 || value.length > 15) {
         callback(new Error('密码需在8位与15位之间'))
-      } else if (value == this.removeAccountInputErrorPassWord) {
+      } else if (value === this.removeAccountInputErrorPassWord) {
         callback(new Error('账户或密码有误'))
       } else {
         callback()
       }
-      if (value != this.removeAccountInputErrorPassWord) {
+      if (value !== this.removeAccountInputErrorPassWord) {
         this.removeAccountInputErrorUserName = null;
       }
     }
@@ -752,6 +749,7 @@ export default {
     openUserLogDialog() {
       this.userLogDialogVisible = true;
       this.listLoading = true;
+      this.logCurrentPage = 1;
       // console.log("LOGLoading")
       // console.log(this.listLoading)
 
@@ -793,8 +791,8 @@ export default {
               let inputPassWord = String(CryptoJS.HmacSHA512(this.newPassWordForm.oldPassWord, time));
               if (inputPassWord !== rightPassWord) {
                 this.errorPassWord = this.newPassWordForm.oldPassWord;
-                this.$refs.newPassWordForm.validate(valid => {
-                  valid
+                this.$refs.newPassWordForm.validate(() => {
+
                 });
               } else {
                 // console.log('当前密码正确，可修改')
@@ -831,8 +829,8 @@ export default {
           checkUserName(base64Encode(this.newUserNameForm.newUserName)).then((response) => {
             this.hasUserName = this.newUserNameForm.newUserName
             if (!response.data) {
-              this.$refs.newUserNameForm.validate(valid => {
-                valid
+              this.$refs.newUserNameForm.validate(() => {
+
               });
               return false;
             } else {
@@ -859,11 +857,11 @@ export default {
       this.updateUserNameDialogVisible = false;
     },
     showPwd(passwordIndex) {
-      if (passwordIndex == 1) {
+      if (passwordIndex === 1) {
         this.oldPassWordType = !this.oldPassWordType;
-      } else if (passwordIndex == 2) {
+      } else if (passwordIndex === 2) {
         this.newPassWordType = !this.newPassWordType;
-      } else if (passwordIndex == 3) {
+      } else if (passwordIndex === 3) {
         this.confirmPassWordType = !this.confirmPassWordType;
       }
     },
@@ -885,8 +883,8 @@ export default {
               if (inputPassWord !== rightPassWord) {
                 this.removeAccountInputErrorUserName = this.removeAccountForm.userName;
                 this.removeAccountInputErrorPassWord = this.removeAccountForm.passWord;
-                this.$refs.removeAccountForm.validate(valid => {
-                  valid
+                this.$refs.removeAccountForm.validate(() => {
+
                 });
               } else {
                 removeAccountAPI(this.removeAccountForm.userName, this.removeAccountForm.passWord, base64Encode(inputPassWord)).then((response) => {
@@ -901,12 +899,12 @@ export default {
                     this.removeAccountForm.passWord = '';
                     this.removeAccountDialogVisible = false;
                     router.push({path: '/'})
-                  } else if (response.data.data.error == '用户信息错误') {
+                  } else if (response.data.data.error === '用户信息错误') {
                     // console.log('用户信息错误')
                     this.removeAccountInputErrorUserName = this.removeAccountForm.userName;
                     this.removeAccountInputErrorPassWord = this.removeAccountForm.passWord;
-                    this.$refs.removeAccountForm.validate(valid => {
-                      valid
+                    this.$refs.removeAccountForm.validate(() => {
+
                     });
                   }
                 })
@@ -917,8 +915,8 @@ export default {
             }
 
           })
-          this.$refs.removeAccountForm.validate(valid => {
-            valid
+          this.$refs.removeAccountForm.validate(() => {
+
           });
         }
       })
@@ -1065,7 +1063,7 @@ export default {
 
 /deep/ .el-dialog.el-dialog--center {
   border-radius: 9px;
-  box-shadow: 0px 0px 50px grey;
+  box-shadow: 0 0 50px grey;
   min-width: 500px;
   min-height: 300px;
 }

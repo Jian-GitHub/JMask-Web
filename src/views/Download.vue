@@ -16,7 +16,7 @@
       <div class="leftContent">
         <div style="margin-left: 10px;margin-top: 10px;">
           <el-avatar class="JMaskAppIcon" shape="square" :size="140" :src="JMaskAppIconURL">
-            <img :src="JMaskAppIconURL"/>
+            <img :src="JMaskAppIconURL" alt/>
           </el-avatar>
 
           <div style="margin-top: 5px">
@@ -41,7 +41,7 @@
       <!--      右面板-->
       <div style="margin-left: 25vw;padding-top: 30px;width: 50vw;text-align: left;height: auto">
 
-        <div style="margin-top: 0px">
+        <div>
           <span style="color: black;font-weight: bold;font-size: 35px">
             下载 JMask APP
           </span>
@@ -133,11 +133,10 @@
             <el-col :span="8">
               <div class="grid-content bg-purple-light" style="text-align: center">
                 <el-icon v-if="compare.canApp" style="font-size: 20px">
-                  <svg fill="#367FF6" t="1648968645037" class="icon" viewBox="0 0 1413 1024"
-                       xmlns="http://www.w3.org/2000/svg" p-id="4767" width="200" height="200">
+                  <svg fill="#367FF6" class="icon" viewBox="0 0 1413 1024"
+                       xmlns="http://www.w3.org/2000/svg" width="200" height="200">
                     <path
-                        d="M1381.807797 107.47394L1274.675044 0.438669 465.281736 809.880718l-322.665524-322.714266L35.434718 594.152982l430.041982 430.041982 107.084012-107.035271-0.243705-0.292446z"
-                        p-id="4768"></path>
+                        d="M1381.807797 107.47394L1274.675044 0.438669 465.281736 809.880718l-322.665524-322.714266L35.434718 594.152982l430.041982 430.041982 107.084012-107.035271-0.243705-0.292446z"></path>
                   </svg>
                 </el-icon>
               </div>
@@ -149,11 +148,10 @@
                   <!--                  <svg viewBox="0 0 24 24" class="wt-icon wt-icon_size_m table-icon-check">-->
                   <!--                    <path d="M8.416 20.414l-6.123-6.123 1.414-1.414 4.709 4.709L21.209 4.793l1.414 1.414L8.416 20.414z"></path>-->
                   <!--                  </svg>-->
-                  <svg fill="#367FF6" t="1648968645037" class="icon" viewBox="0 0 1413 1024"
-                       xmlns="http://www.w3.org/2000/svg" p-id="4767" width="200" height="200">
+                  <svg fill="#367FF6" class="icon" viewBox="0 0 1413 1024"
+                       xmlns="http://www.w3.org/2000/svg" width="200" height="200">
                     <path
-                        d="M1381.807797 107.47394L1274.675044 0.438669 465.281736 809.880718l-322.665524-322.714266L35.434718 594.152982l430.041982 430.041982 107.084012-107.035271-0.243705-0.292446z"
-                        p-id="4768"></path>
+                        d="M1381.807797 107.47394L1274.675044 0.438669 465.281736 809.880718l-322.665524-322.714266L35.434718 594.152982l430.041982 430.041982 107.084012-107.035271-0.243705-0.292446z"></path>
                   </svg>
                 </el-icon>
               </div>
@@ -170,7 +168,7 @@
 </template>
 
 <script>
-import {openInfoNotification} from '../utils/Notification'
+import {openInfoNotification} from '@/utils/Notification'
 import {getCompareAppWebAPI, getJMaskAppInfoAPI} from "@/api/api";
 import store from "@/store"
 // import router from "@/router";
@@ -257,8 +255,8 @@ export default {
     //   // // }
     // },
     downloadButton(downloadType) {
-      this.downloadTypes.macOS = downloadType === 'macOSButton' ? true : false;
-      this.downloadTypes.Windows = downloadType === 'macOSButton' ? false : true;
+      this.downloadTypes.macOS = downloadType === 'macOSButton';
+      this.downloadTypes.Windows = downloadType !== 'macOSButton';
       document.getElementById(downloadType === 'macOSButton' ? 'macOSButton' : 'WindowsButton').style.color = 'dodgerblue';
       document.getElementById(downloadType === 'macOSButton' ? 'macOSLine' : 'WindowsLine').style.borderTop = '2px solid dodgerblue';
       document.getElementById(downloadType === 'macOSButton' ? 'WindowsButton' : 'macOSButton').style.color = 'darkgrey';
@@ -270,7 +268,7 @@ export default {
     downloadAPP() {
       // openInfoNotification('提示', 'JMask APP 暂未开放下载');
       if (this.downloadTypes.macOS) {
-        if (this.downloadMacURL == '') {
+        if (this.downloadMacURL === '') {
           openInfoNotification('提示', 'JMask APP Mac版 暂未开放下载');
           return;
         }
@@ -278,7 +276,7 @@ export default {
         window.location.href = this.downloadMacURL;
         // router.push({path: this.downloadMacURL})
       }else if (this.downloadTypes.Windows) {
-        if (this.downloadWinURL == '') {
+        if (this.downloadWinURL === '') {
           openInfoNotification('提示', 'JMask APP Windows版 暂未开放下载');
           return;
         }

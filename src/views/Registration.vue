@@ -37,8 +37,7 @@
           <svg width="30px" height="30px" class="icon" viewBox="0 -250 1500 1024" xmlns="http://www.w3.org/2000/svg"
                data-v-ba633cb8="">
             <path fill="currentColor"
-                  d="M870.4 354.576H716.8v-42.88c0-72.32-26.464-193.304-204.8-193.304-185.16 0-204.8 135.048-204.8 193.296v42.888H153.6v-42.88C153.6 122.248 294.384 0 512 0c217.616 0 358.4 122.248 358.4 311.688v42.888z m-256 314.848c0-43.52-46.104-78.656-102.4-78.656-56.296 0-102.4 35.136-102.4 78.656 0 29.456 20.536 54.464 51.256 67.816v89.64c0 21.744 23 39.696 51.2 39.696 28.192 0 51.2-17.952 51.2-39.696V737.24c30.664-13.352 51.144-38.36 51.144-67.816zM1024 512v393.608c0 65.264-69.16 118.392-153.6 118.392H153.6C69.208 1024 0 970.872 0 905.608V512c0-65.224 69.16-118.392 153.6-118.392h716.8c84.44 0 153.6 53.168 153.6 118.392z"
-                  p-id="1368"></path>
+                  d="M870.4 354.576H716.8v-42.88c0-72.32-26.464-193.304-204.8-193.304-185.16 0-204.8 135.048-204.8 193.296v42.888H153.6v-42.88C153.6 122.248 294.384 0 512 0c217.616 0 358.4 122.248 358.4 311.688v42.888z m-256 314.848c0-43.52-46.104-78.656-102.4-78.656-56.296 0-102.4 35.136-102.4 78.656 0 29.456 20.536 54.464 51.256 67.816v89.64c0 21.744 23 39.696 51.2 39.696 28.192 0 51.2-17.952 51.2-39.696V737.24c30.664-13.352 51.144-38.36 51.144-67.816zM1024 512v393.608c0 65.264-69.16 118.392-153.6 118.392H153.6C69.208 1024 0 970.872 0 905.608V512c0-65.224 69.16-118.392 153.6-118.392h716.8c84.44 0 153.6 53.168 153.6 118.392z"></path>
           </svg>
         </span>
           <el-input
@@ -63,8 +62,7 @@
           <svg width="30px" height="30px" class="icon" viewBox="0 -250 1500 1024" xmlns="http://www.w3.org/2000/svg"
                data-v-ba633cb8="">
             <path fill="currentColor"
-                  d="M870.4 354.576H716.8v-42.88c0-72.32-26.464-193.304-204.8-193.304-185.16 0-204.8 135.048-204.8 193.296v42.888H153.6v-42.88C153.6 122.248 294.384 0 512 0c217.616 0 358.4 122.248 358.4 311.688v42.888z m-256 314.848c0-43.52-46.104-78.656-102.4-78.656-56.296 0-102.4 35.136-102.4 78.656 0 29.456 20.536 54.464 51.256 67.816v89.64c0 21.744 23 39.696 51.2 39.696 28.192 0 51.2-17.952 51.2-39.696V737.24c30.664-13.352 51.144-38.36 51.144-67.816zM1024 512v393.608c0 65.264-69.16 118.392-153.6 118.392H153.6C69.208 1024 0 970.872 0 905.608V512c0-65.224 69.16-118.392 153.6-118.392h716.8c84.44 0 153.6 53.168 153.6 118.392z"
-                  p-id="1368"></path>
+                  d="M870.4 354.576H716.8v-42.88c0-72.32-26.464-193.304-204.8-193.304-185.16 0-204.8 135.048-204.8 193.296v42.888H153.6v-42.88C153.6 122.248 294.384 0 512 0c217.616 0 358.4 122.248 358.4 311.688v42.888z m-256 314.848c0-43.52-46.104-78.656-102.4-78.656-56.296 0-102.4 35.136-102.4 78.656 0 29.456 20.536 54.464 51.256 67.816v89.64c0 21.744 23 39.696 51.2 39.696 28.192 0 51.2-17.952 51.2-39.696V737.24c30.664-13.352 51.144-38.36 51.144-67.816zM1024 512v393.608c0 65.264-69.16 118.392-153.6 118.392H153.6C69.208 1024 0 970.872 0 905.608V512c0-65.224 69.16-118.392 153.6-118.392h716.8c84.44 0 153.6 53.168 153.6 118.392z"></path>
           </svg>
         </span>
           <el-input
@@ -126,7 +124,7 @@ export default {
       // if (value.length < 10) {
       if (value.length < 8 || value.length > 15) {
         callback(new Error('密码需在8位与15位之间'))
-      } else if (value != this.registrationForm.password) {
+      } else if (value !== this.registrationForm.password) {
         callback(new Error('两次密码不一致'))
       } else {
         callback()
@@ -150,23 +148,15 @@ export default {
       redirect: undefined
     }
   },
-  watch: {
-    $route: {
-      handler: function (route) {
-        this.redirect = route.query && route.query.redirect
-      },
-      immediate: true
-    }
-  },
   methods: {
     showPwd(passwordIndex) {
-      if (passwordIndex != 2 ? this.passwordType === 'password' : this.confirmPasswordType === 'password') {
-        passwordIndex != 2 ? this.passwordType = '' : this.confirmPasswordType = '';
+      if (passwordIndex !== 2 ? this.passwordType === 'password' : this.confirmPasswordType === 'password') {
+        passwordIndex !== 2 ? this.passwordType = '' : this.confirmPasswordType = '';
       } else {
-        passwordIndex != 2 ? this.passwordType = 'password' : this.confirmPasswordType = 'password';
+        passwordIndex !== 2 ? this.passwordType = 'password' : this.confirmPasswordType = 'password';
       }
       this.$nextTick(() => {
-        passwordIndex != 2 ? this.$refs.password.focus() : this.$refs.password2.focus();
+        passwordIndex !== 2 ? this.$refs.password.focus() : this.$refs.password2.focus();
       })
     },
     // getNowFormatDate() {
@@ -258,9 +248,7 @@ export default {
   color: #fff;
 }
 
- reset element-ui css 
 .registration-container {
-  --bg: #283443;
   --bg: #333333;
   --light_gray: #fff;
   --cursor: #fff;
@@ -274,9 +262,9 @@ export default {
 
 .input {
   background: transparent;
-  border: 0px;
+  border: 0;
   -webkit-appearance: none;
-  border-radius: 0px;
+  border-radius: 0;
   padding: 12px 5px 12px 15px;
   color: var(--light_gray);
   height: 47px;
@@ -284,7 +272,7 @@ export default {
 }
 
 .-webkit-autofill {
-  box-shadow: 0 0 0px 1000px var(--bg) inset !important;
+  box-shadow: 0 0 0 1000px var(--bg) inset !important;
   -webkit-text-fill-color: var(--cursor) !important;
 }
 
@@ -296,7 +284,6 @@ export default {
 }
 
 .registration-container {
-  --bg: #2d3a4b;
   --bg: #333333;
   --dark_gray: #889aa4;
   --light_gray: #eee;
@@ -341,7 +328,7 @@ export default {
 .title {
   font-size: 26px;
   color: var(--light_gray);
-  margin: 0px auto 40px auto;
+  margin: 0 auto 40px auto;
   text-align: center;
   font-weight: bold;
 }

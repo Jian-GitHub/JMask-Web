@@ -34,33 +34,7 @@ export function checkUserName(userName) {
       })
   )
 }
-//获取用户头像
-export function getAvatar() {
-    return axios.post(
-        store.urls.getAvatarURL,
-        qs.stringify({
-            token: JSON.parse(window.localStorage.getItem('token'))
-        })
-    )
-}
-//获取用户ID
-export function getUserID() {
-    return axios.post(
-        store.urls.getUserIdURL,
-        qs.stringify({
-            token: JSON.parse(window.localStorage.getItem('token'))
-        })
-    )
-}
-//获取用户名
-export function getUserName() {
-    return axios.post(
-        store.urls.getUserIdURL,
-        qs.stringify({
-            token: JSON.parse(window.localStorage.getItem('token'))
-        })
-    )
-}
+
 //获取用户信息- id userName avatarURL
 export function getUserInfoAPI() {
     return axios.post(
@@ -108,16 +82,6 @@ export function removeAccountAPI(userName, passWord, encodePassWord) {
             userName: userName,
             passWord: passWord,
             encodePassWord: encodePassWord
-        })
-    )
-}
-//上传头像
-export function uploadAvatarAPI(file) {
-    return axios.post(
-        store.urls.uploadAvatarURL,
-        qs.stringify({
-            token: JSON.parse(window.localStorage.getItem('token')),
-            file: file
         })
     )
 }

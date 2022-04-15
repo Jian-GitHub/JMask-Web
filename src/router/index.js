@@ -97,10 +97,6 @@ const router = createRouter({
 })
 
 router.beforeEach((to, from, next) => {
-    // if(to.path.startsWith('/loginURL')){
-    //     window.localStorage.removeItem('access-admin')
-    //     next()
-    // }
     if (to.path.toLowerCase() === '/jmask/login'){
         localStorage.removeItem('token');
         // store.token = '';
@@ -118,7 +114,7 @@ router.beforeEach((to, from, next) => {
         } else {
             //检验token合法性
             checkToken().then((response) => {
-                if (response.data.code == store.statusCode.ERROR) {
+                if (response.data.code === store.statusCode.ERROR) {
                     // console.log("检验失败")
                     openInfoNotification('登录信息失效', '请重新登录')
                     // next({path: '/error'})

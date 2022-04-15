@@ -4,7 +4,7 @@
             -->
   <div class="HomePage">
     <h1 id="JMaskMsg">JMask是一个基于AI神经网络自动识别口罩佩戴的系统。</h1>
-    <div id="JMaskAIDiv" style="margin-top: 0%">
+    <div id="JMaskAIDiv">
       <video
           v-show="isShowVideo"
           id="JMaskAIVideo"
@@ -41,7 +41,7 @@ function easeInOutQuart(x) {
 }
 export default {
   name: "Home",
-  beforeRouteEnter(){
+  mounted(){
     scroll(0,0);
   },
   created() {
@@ -140,9 +140,6 @@ export default {
       // }
     })
   },
-  beforeRouteLeave(){
-    window.removeEventListener('scroll',() => {});
-  },
   data() {
     return {
       ok: false,
@@ -189,7 +186,6 @@ export default {
   height: 100vh;
   /*width: 100vw;*/
   position: relative;
-  left: 0%;
   transform: translate(0%, 0);
 }
 

@@ -58,7 +58,7 @@
 </template>
 
 <script>
-import {defineComponent, onMounted, ref} from 'vue'
+import {defineComponent, ref} from 'vue'
 import router from "@/router";
 // import {checkToken} from "@/api/api";
 // import store from "@/store";
@@ -68,6 +68,7 @@ export default defineComponent({
   name: "JMask",
   computed: {},
   mounted() {
+    document.querySelector('body').setAttribute('style', 'background-color: #333333')
     let scrollDiv = document.createElement('div');
     scrollDiv.style.cssText = 'width: 99px;height: 99px;overflow: scroll;position: absolute;top: -9999px;';
     document.body.appendChild(scrollDiv);
@@ -91,7 +92,7 @@ export default defineComponent({
     }
   },
   methods: {
-    handleSelect: function (key, keyPath) {
+    handleSelect: function (key) {
       switch (key) {
         case '1':
           router.push({path: '/JMask/Home'})
@@ -119,7 +120,7 @@ export default defineComponent({
           // }
           break;
       }
-      keyPath
+      // keyPath
       // console.log('key:' + key + '===' + 'keyPath: ' + keyPath)
     },
     JMaskTitleMenuItem(arg) {
@@ -127,12 +128,6 @@ export default defineComponent({
       // console.log(arg.onLineItemName)
       this.JMaskTitleMenu.JMaskOnline = arg.onLineItemName
     }
-  },
-  setup() {
-    onMounted(() => {
-      // console.log("执行了")
-      document.querySelector('body').setAttribute('style', 'background-color: #333333')
-    })
   }
   // setup() {
   //   // const activeIndex = ref('1')
@@ -175,7 +170,7 @@ export default defineComponent({
   width: 100%;
   height: 100%;
   /*padding-top: 44px;*/
-  font-family: PingFangSC-Regular;
+  font-family: PingFangSC-Regular, serif;
   z-index: -999999;
   /*box-sizing: border-box;*/
 }
@@ -204,20 +199,4 @@ export default defineComponent({
   z-index: -1;
 }
 
-.modal-measure-scrollbar {
-  box-sizing: border-box;
-  position: absolute;
-  height: 100px;
-  width: 100px;
-  top: -3000px;
-  left: -3000px;
-  overflow: scroll;
-  z-index: 1000;
-  overflow-y: scroll;
-}
-
-.modal-measure-scrollbar .inner {
-  box-sizing: border-box;
-  height: 200px;
-}
 </style>
