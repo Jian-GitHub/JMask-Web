@@ -136,7 +136,13 @@ export default {
   },
   methods: {
     goBack() {
-      this.$router.go(store.goBackNum)
+      const goBackIndex = JSON.parse(window.localStorage.getItem("goBackIndex"));
+      if (!goBackIndex) {
+        this.$router.push({path: '/'})
+      }else {
+        this.$router.go(goBackIndex);
+      }
+      window.localStorage.removeItem("goBackIndex");
     },
     showPwd() {
       if (this.passwordType === 'password') {

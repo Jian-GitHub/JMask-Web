@@ -102,7 +102,14 @@ router.beforeEach((to, from, next) => {
         // store.token = '';
         // store.userName = '';
         document.title = 'JMask 登录';
+        const goBackIndex = window.localStorage.getItem("goBackIndex") ? JSON.parse(window.localStorage.getItem("goBackIndex")) - 1 : -1;
+        window.localStorage.setItem("goBackIndex", goBackIndex);
         next();
+    }else if (to.path.toLowerCase() === '/jmask/registration'){
+        document.title = 'JMask 注册';
+        const goBackIndex = window.localStorage.getItem("goBackIndex") ? JSON.parse(window.localStorage.getItem("goBackIndex")) - 1 : -1;
+        window.localStorage.setItem("goBackIndex", goBackIndex);
+        next()
     }else if (to.path.toLowerCase() === '/jmask/account/manage') {
         let token = JSON.parse(window.localStorage.getItem('token'))
         // let token = store.token
