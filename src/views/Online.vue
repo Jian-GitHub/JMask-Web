@@ -17,38 +17,6 @@
               :on-success="onSuccess"
               :data="uploadParams()"
           >
-            <template #default>
-              <el-icon>
-                <plus/>
-              </el-icon>
-            </template>
-            <template #file="{ file }">
-              <div>
-                <el-image class="el-upload-list__item-thumbnail" :src="file.url" alt=""/>
-                <span class="el-upload-list__item-actions">
-                    <span
-                        class="el-upload-list__item-preview"
-                        @click="handlePictureCardPreview(file)"
-                    >
-                  <el-icon><zoom-in/></el-icon>
-                    </span>
-                  <span
-                      v-if="!disabled"
-                      class="el-upload-list__item-delete"
-                      @click="handleDownload(file)"
-                  >
-                    <el-icon><download/></el-icon>
-                  </span>
-                  <span
-                      v-if="!disabled"
-                      class="el-upload-list__item-delete"
-                      @click="handleRemove(file)"
-                  >
-                    <el-icon><delete/></el-icon>
-                  </span>
-                </span>
-              </div>
-            </template>
           </el-upload>
           <div v-show="isShow" class="tips">
             <span>请上传小于10M且为jpg格式的人脸图片</span>
@@ -77,11 +45,6 @@
             </el-upload>
           </div>
 
-
-
-          <el-dialog v-model="dialogVisible">
-            <el-image fit="contain" width="100%" :src="dialogImageUrl" alt=""/>
-          </el-dialog>
         </div>
       </div>
 
@@ -108,24 +71,16 @@
 </template>
 
 <script>
-import {Plus, ZoomIn, Download, Delete} from '@element-plus/icons-vue'
 import {ref} from "vue";
 import store from "@/store"
 import {openErrorNotification, openInfoNotification} from "@/utils/Notification";
 export default {
   name: "Online",
-  components: {
-    Plus,
-    ZoomIn,
-    Download,
-    Delete,
-  },
   data() {
     return {
       dealImg: store.urls.dealImgURL,
       fileURL: ref(null),
       dialogImageUrl: '',
-      dialogVisible: false,
       disabled: false,
       isShow: true,
       loading: false,
@@ -159,11 +114,6 @@ export default {
     },
     handleRemove(file) {
       console.log(file)
-    },
-    handlePictureCardPreview(file) {
-      // console.log(file.url);
-      this.dialogImageUrl = file.url
-      this.dialogVisible = true
     },
     handleDownload(file) {
       console.log(file)
