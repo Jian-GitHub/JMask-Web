@@ -98,7 +98,7 @@ const router = createRouter({
 
 router.beforeEach((to, from, next) => {
     if (to.path.toLowerCase() === '/jmask/login'){
-        localStorage.removeItem('token');
+        // localStorage.removeItem('token');
         // store.token = '';
         // store.userName = '';
         document.title = 'JMask 登录';
@@ -109,9 +109,9 @@ router.beforeEach((to, from, next) => {
         document.title = 'JMask 注册';
         const goBackIndex = window.localStorage.getItem("goBackIndex") ? JSON.parse(window.localStorage.getItem("goBackIndex")) - 1 : -1;
         window.localStorage.setItem("goBackIndex", goBackIndex);
-        next()
+        next();
     }else if (to.path.toLowerCase() === '/jmask/account/manage') {
-        let token = JSON.parse(window.localStorage.getItem('token'))
+        let token = JSON.parse(window.localStorage.getItem('token'));
         // let token = store.token
         if (!token) {
             localStorage.setItem('toPath', to.path)
@@ -130,6 +130,7 @@ router.beforeEach((to, from, next) => {
                     document.title = 'JMask 登录';
                 }else{
                     // console.log('token有效')
+                    window.localStorage.removeItem("goBackIndex");
                     next()
                     if (to.meta.title) {
                         document.title = to.meta.title
@@ -138,9 +139,11 @@ router.beforeEach((to, from, next) => {
             })
         }
     }else if(to.path.toLowerCase() === '/jmask/online'){
+        window.localStorage.removeItem("goBackIndex");
         document.title = window.localStorage.getItem('token') ? 'JMask 在线使用' : 'JMask 在线试用'
         next()
     }else {
+        window.localStorage.removeItem("goBackIndex");
         if (to.meta.title) {
             document.title = to.meta.title
         }

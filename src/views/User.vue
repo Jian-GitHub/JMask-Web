@@ -23,6 +23,7 @@
               :before-upload="beforeAvatarUpload"
               :data="uploadAvatarParams"
               title="点击上传头像"
+              accept=".jpg,.jpeg,.png"
           >
             <el-avatar class="userAvatar" :size="80" :src="avatarURL">
               <span v-if="avatarURL === ''">{{ userName }}</span>
@@ -439,10 +440,10 @@
               style="width: 100%;"
               height="250"
           >
-<!--
-              :infinite-scroll-delay="700"
-              :infinite-scroll-immediate="false"
-              v-infinite-scroll="logLoad"-->
+            <!--
+                          :infinite-scroll-delay="700"
+                          :infinite-scroll-immediate="false"
+                          v-infinite-scroll="logLoad"-->
             <el-table-column prop="date" align="center" min-width="200">
               <template #header>
                 <div>
@@ -513,7 +514,7 @@
       <!--        </el-table-column>-->
       <!--      </el-table>-->
       <div class="footer" style="width:100%;padding-top: 10px;height: 50px;text-align: center;">
-<!--        <div style="width: 100%;text-align: center">-->
+        <!--        <div style="width: 100%;text-align: center">-->
         <el-pagination
             layout="prev, pager, next"
             :total="logNum"
@@ -522,7 +523,7 @@
             @current-change="changeLogPage"
             :current-page="logCurrentPage"
         />
-<!--        </div>-->
+        <!--        </div>-->
       </div>
       <!--            <template #footer>-->
 
@@ -692,7 +693,7 @@ export default {
     }
   },
   methods: {
-    changeLogPage(pageIndex){
+    changeLogPage(pageIndex) {
       this.listLoading = true;
       this.logCurrentPage = pageIndex
       // console.log(this.logCurrentPage)
@@ -713,6 +714,12 @@ export default {
       window.localStorage.removeItem('token');
       window.localStorage.removeItem('toPath');
       // store.token = '';
+      const onLineItemName = '在线试用';
+      const JMaskIsLogin = false;
+      this.$emit('JMaskTitleMenuItem', {
+        onLineItemName,
+        JMaskIsLogin
+      })
       router.push({path: '/'})
     },
     getUserInfo() {
@@ -1128,9 +1135,10 @@ export default {
   background-color: white;
 }
 
-/deep/ .active  .number {
+/deep/ .active .number {
   border: none;
 }
+
 /deep/ .number {
   border: none;
 }

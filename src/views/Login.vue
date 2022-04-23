@@ -89,7 +89,7 @@
         </svg>
         <span
             style="font-weight:bold;color: white;cursor: pointer;user-select: none;margin-left: 1px;font-size: 14px;">
-          返回主页
+          返回
         </span>
       </a>
 
@@ -105,6 +105,9 @@ import {openErrorNotification} from "@/utils/Notification"
 
 export default {
   name: 'Login',
+  beforeRouteLeave() {
+    window.localStorage.removeItem("toPath");
+  },
   data() {
     const validateUsername = (rule, value, callback) => {
       if (value.length < 2 || value.length > 15) {
@@ -142,7 +145,6 @@ export default {
       }else {
         this.$router.go(goBackIndex);
       }
-      window.localStorage.removeItem("goBackIndex");
     },
     showPwd() {
       if (this.passwordType === 'password') {
@@ -186,8 +188,10 @@ export default {
     },
     changeJMaskMenuItem() {
       const onLineItemName = '在线使用';
+      const JMaskIsLogin = true;
       this.$emit('JMaskTitleMenuItem', {
-        onLineItemName
+        onLineItemName,
+        JMaskIsLogin
       })
       // console.log('打印', onLineItemName)
     }

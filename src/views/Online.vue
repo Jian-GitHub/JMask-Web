@@ -65,6 +65,7 @@
                 :data="uploadParams()"
                 title="重新上传"
                 style="max-height: 320px;max-width: 550px;cursor: none;user-select: none;"
+                accept=".jpg,.jpeg"
             >
               <el-image
                   class="upload-img"

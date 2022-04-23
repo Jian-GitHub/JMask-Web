@@ -40,8 +40,17 @@
         <!--        </el-sub-menu>-->
 
         <!--        <span style="margin-right: 5px;font-size: 12px;float: right">登录 / 注册</span>-->
-        <el-menu-item id="accountMenuItem" index="4" style=";display:flex;float: right;">
-          <svg class="icon" width="15px" height="15px" viewBox="0 0 1024 1024" xmlns="http://www.w3.org/2000/svg"
+        <el-menu-item id="accountMenuItem" index="4" style="width: 70px;display:flex;float: right;">
+          <el-avatar class="userAvatar" :size="20" :src="JMaskTitleMenu.userInfo.avatarURL"
+                     v-if="JMaskTitleMenu.JMaskIsLogin" style="box-shadow: 0 0 5px grey;">
+            <span>{{ JMaskTitleMenu.userInfo.userName }}</span>
+            <img
+                v-if="JMaskTitleMenu.userInfo.avatarURL !== ''"
+                :src="JMaskTitleMenu.userInfo.avatarURL"
+                alt
+            />
+          </el-avatar>
+          <svg v-else class="icon" width="15px" height="15px" viewBox="0 0 1024 1024" xmlns="http://www.w3.org/2000/svg"
                data-v-365b8594="">
             <path fill="currentColor"
                   d="M288 320a224 224 0 10448 0 224 224 0 10-448 0zm544 608H160a32 32 0 01-32-32v-96a160 160 0 01160-160h448a160 160 0 01160 160v96a32 32 0 01-32 32z">
@@ -60,6 +69,8 @@
 <script>
 import {defineComponent, ref} from 'vue'
 import router from "@/router";
+import {getUserInfoAPI} from "@/api/api";
+import store from "@/store";
 // import {checkToken} from "@/api/api";
 // import store from "@/store";
 // // import {openInfoNotification} from "@/utils/Notification";
@@ -74,13 +85,22 @@ export default defineComponent({
     document.body.appendChild(scrollDiv);
     this.scrollbarWidth = scrollDiv.offsetWidth - scrollDiv.clientWidth;
     this.menu = document.querySelector('#menu');
+
+    if (JSON.parse(window.localStorage.getItem("token"))) {
+      this.getUserInfo();
+    }
   },
   data() {
     return {
       JMaskTitleMenu: {
         JMaskHomePage: 'JMask',
         JMaskOnline: window.localStorage.getItem("token") ? "在线使用" : '在线试用',
-        JMaskDownload: '下载应用'
+        JMaskDownload: '下载应用',
+        JMaskIsLogin: false,
+        userInfo: {
+          userName: '',
+          avatarURL: ''
+        }
       },
       // JMaskPage : true
       backgroundColor: ref('#333333'),
@@ -92,6 +112,18 @@ export default defineComponent({
     }
   },
   methods: {
+    getUserInfo() {
+      getUserInfoAPI().then((response) => {
+        if (response.data.code === store.statusCode.SUCCESS) {
+          this.JMaskTitleMenu.userInfo.avatarURL = response.data.data.avatarURL;
+          this.JMaskTitleMenu.userInfo.userName = response.data.data.userName;
+          this.JMaskTitleMenu.JMaskIsLogin = true;
+        } else {
+          this.JMaskTitleMenu.JMaskIsLogin = false;
+          alert(response.data.data.error);
+        }
+      })
+    },
     handleSelect: function (key) {
       switch (key) {
         case '1':
@@ -127,6 +159,12 @@ export default defineComponent({
       // console.log('接收')
       // console.log(arg.onLineItemName)
       this.JMaskTitleMenu.JMaskOnline = arg.onLineItemName
+      if (arg.JMaskIsLogin) {
+        this.getUserInfo();
+        this.JMaskTitleMenu.JMaskIsLogin = arg.JMaskIsLogin;
+      }else {
+        this.JMaskTitleMenu.JMaskIsLogin = arg.JMaskIsLogin;
+      }
     }
   }
   // setup() {
