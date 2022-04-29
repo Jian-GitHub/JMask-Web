@@ -110,3 +110,13 @@ export function getUserLogAPI(startIndex) {
         })
     )
 }
+
+//用户退出登录
+export function userLogOutAPI() {
+    return axios.post(
+        store.urls.userLogOutURL,
+        qs.stringify({
+            token: JSON.parse(window.localStorage.getItem('token'))
+        })
+    )
+}

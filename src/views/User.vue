@@ -542,7 +542,8 @@ import {
   removeAccountAPI,
   updateUserNameAPI,
   updateUserPassWordAPI,
-  getUserLogAPI
+  getUserLogAPI,
+  userLogOutAPI
 } from "@/api/api";
 import {ref} from "vue";
 import router from "@/router";
@@ -711,8 +712,6 @@ export default {
       })
     },
     logOut() {
-      window.localStorage.removeItem('token');
-      window.localStorage.removeItem('toPath');
       // store.token = '';
       const onLineItemName = '在线试用';
       const JMaskIsLogin = false;
@@ -720,7 +719,10 @@ export default {
         onLineItemName,
         JMaskIsLogin
       })
+      userLogOutAPI();
       router.push({path: '/'})
+      window.localStorage.removeItem('token');
+      window.localStorage.removeItem('toPath');
     },
     getUserInfo() {
       getUserInfoAPI().then((response) => {

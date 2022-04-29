@@ -17,6 +17,7 @@
               :on-success="onSuccess"
               :data="uploadParams()"
           >
+            <el-icon class="avatar-uploader-icon"><Plus /></el-icon>
           </el-upload>
           <div v-show="isShow" class="tips">
             <span>请上传小于10M且为jpg格式的人脸图片</span>
@@ -74,8 +75,12 @@
 import {ref} from "vue";
 import store from "@/store"
 import {openErrorNotification, openInfoNotification} from "@/utils/Notification";
+import { Plus } from '@element-plus/icons-vue'
 export default {
   name: "Online",
+  components: {
+    Plus
+  },
   data() {
     return {
       dealImg: store.urls.dealImgURL,

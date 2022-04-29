@@ -87,7 +87,10 @@
         </el-button>
 
       </div>
-      <span class="tips" style="font-weight:bold;float:right">已有账号？<a style="font-weight:bold;color: #6fd1ff;cursor: pointer;user-select: none;" @click="$router.push({path: '/JMask/Login'})">点我登录</a></span>
+      <span class="tips" style="font-weight:bold;float:right">
+        已有账号？
+        <a style="font-weight:bold;color: #6fd1ff;cursor: pointer;user-select: none;" @click="$router.replace({path: '/JMask/Login'})">点我登录</a>
+      </span>
 
     </el-form>
   </div>

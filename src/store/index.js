@@ -4,6 +4,8 @@ const store = {
     dealImgURL: '/api/JMask/DealData/dealImgWeb',
     //获取用户密码
     getPassWordURL: '/api/JMask/User/getPassWordByToken',
+    //退出登录
+    userLogOutURL: '/api/JMask/User/logOut',
     //登录
     loginURL: '/api/JMask/WebLogin',
     //校验token

@@ -81,7 +81,7 @@
       </div>
       <span class="tips" style="font-weight:bold;float:right">没有账号？<a
           style="font-weight:bold;color: #6fd1ff;cursor: pointer;user-select: none;"
-          @click="$router.push({path: '/JMask/Registration'})">点我注册</a></span>
+          @click="$router.replace({path: '/JMask/Registration'})">点我注册</a></span>
 
       <a class="tips" style="display: flex;float:left;margin-left: 1px;justify-content: center" @click="goBack">
         <svg class="icon" viewBox="0 0 1024 1024" xmlns="http://www.w3.org/2000/svg" width="19" height="19">
@@ -139,12 +139,13 @@ export default {
   },
   methods: {
     goBack() {
-      const goBackIndex = JSON.parse(window.localStorage.getItem("goBackIndex"));
-      if (!goBackIndex) {
-        this.$router.push({path: '/'})
-      }else {
-        this.$router.go(goBackIndex);
-      }
+      // const goBackIndex = JSON.parse(window.localStorage.getItem("goBackIndex"));
+      // if (!goBackIndex) {
+      //   this.$router.push({path: '/'})
+      // }else {
+      //   this.$router.go(goBackIndex);
+      // }
+      this.$router.go(-1);
     },
     showPwd() {
       if (this.passwordType === 'password') {
