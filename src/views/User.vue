@@ -881,52 +881,29 @@ export default {
         if (valid) {
 
           getUserPassWordAPI().then((response) => {
-
-            // console.log('获取密码')
-            // console.log(response.data.code)
             if (response.data.code === store.statusCode.SUCCESS) {
               let rightPassWord = String(response.data.data.passWord);
               let time = String(response.data.data.time);
               let inputPassWord = String(CryptoJS.HmacSHA512(this.removeAccountForm.passWord, time));
-              // console.log(inputPassWord !== rightPassWord)
               if (inputPassWord !== rightPassWord) {
                 this.removeAccountInputErrorUserName = this.removeAccountForm.userName;
                 this.removeAccountInputErrorPassWord = this.removeAccountForm.passWord;
-                this.$refs.removeAccountForm.validate(() => {
-
-                });
+                this.$refs.removeAccountForm.validate(() => {});
               } else {
                 removeAccountAPI(this.removeAccountForm.userName, this.removeAccountForm.passWord, base64Encode(inputPassWord)).then((response) => {
                   if (response.data.code === store.statusCode.SUCCESS) {
                     openSuccessNotification('成功', '您的账号已注销');
-                    window.localStorage.removeItem('toPath');
-                    window.localStorage.removeItem('token');
-                    // store.token = '';
-                    this.removeAccountInputErrorUserName = null;
-                    this.removeAccountInputErrorPassWord = null;
-                    this.removeAccountForm.userName = '';
-                    this.removeAccountForm.passWord = '';
-                    this.removeAccountDialogVisible = false;
                     router.push({path: '/'})
                   } else if (response.data.data.error === '用户信息错误') {
-                    // console.log('用户信息错误')
                     this.removeAccountInputErrorUserName = this.removeAccountForm.userName;
                     this.removeAccountInputErrorPassWord = this.removeAccountForm.passWord;
-                    this.$refs.removeAccountForm.validate(() => {
-
-                    });
+                    this.$refs.removeAccountForm.validate(() => {});
                   }
                 })
               }
-              // console.log('当前密码正确，可修改')
-            } else {
-              alert('服务器错误')
             }
-
           })
-          this.$refs.removeAccountForm.validate(() => {
-
-          });
+          this.$refs.removeAccountForm.validate(() => {});
         }
       })
       this.loading = false;

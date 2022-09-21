@@ -1,5 +1,7 @@
 module.exports = {
     devServer: {
+        // port: 80,
+        disableHostCheck: true,
         proxy: {
             '/api': {
                 target: 'https://www.jian-internet.com:8081', //目标地址--api路径

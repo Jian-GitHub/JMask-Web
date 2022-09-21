@@ -98,9 +98,6 @@ const router = createRouter({
 
 router.beforeEach((to, from, next) => {
     if (to.path.toLowerCase() === '/jmask/login'){
-        // localStorage.removeItem('token');
-        // store.token = '';
-        // store.userName = '';
         document.title = 'JMask 登录';
         const goBackIndex = window.localStorage.getItem("goBackIndex") ? JSON.parse(window.localStorage.getItem("goBackIndex")) - 1 : -1;
         window.localStorage.setItem("goBackIndex", goBackIndex);
@@ -112,25 +109,17 @@ router.beforeEach((to, from, next) => {
         next();
     }else if (to.path.toLowerCase() === '/jmask/account/manage') {
         let token = JSON.parse(window.localStorage.getItem('token'));
-        // let token = store.token
         if (!token) {
-            localStorage.setItem('toPath', to.path)
-            store.toPath = to.path;
             next({path: '/JMask/Login'})
             document.title = 'JMask 登录';
         } else {
             //检验token合法性
             checkToken().then((response) => {
                 if (response.data.code === store.statusCode.ERROR) {
-                    // console.log("检验失败")
                     openInfoNotification('登录信息失效', '请重新登录')
-                    // next({path: '/error'})
-                    localStorage.setItem('toPath', to.path)
                     next({path: '/JMask/Login'})
                     document.title = 'JMask 登录';
                 }else{
-                    // console.log('token有效')
-                    window.localStorage.removeItem("goBackIndex");
                     next()
                     if (to.meta.title) {
                         document.title = to.meta.title

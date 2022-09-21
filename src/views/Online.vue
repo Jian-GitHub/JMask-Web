@@ -16,11 +16,12 @@
               :before-upload="beforeAvatarUpload"
               :on-success="onSuccess"
               :data="uploadParams()"
+              accept=".jpg,.jpeg,.png,.heic"
           >
             <el-icon class="avatar-uploader-icon"><Plus /></el-icon>
           </el-upload>
           <div v-show="isShow" class="tips">
-            <span>请上传小于10M且为jpg格式的人脸图片</span>
+            <span>请上传小于10M且为jpg/png/heic格式的人脸图片</span>
           </div>
 
           <div>
@@ -34,7 +35,7 @@
                 :data="uploadParams()"
                 title="重新上传"
                 style="max-height: 320px;max-width: 550px;cursor: none;user-select: none;"
-                accept=".jpg,.jpeg"
+                accept=".jpg,.jpeg,.png,.heic"
             >
               <el-image
                   class="upload-img"
@@ -102,7 +103,9 @@ export default {
       // fileList
       if (response.code === store.statusCode.SUCCESS) {
         this.resultImgData = 'data:image/jpg;base64,' + response.data.imageData;
-        this.dialogImageUrl = URL.createObjectURL(file.raw)//file.url;
+        this.dialogImageUrl = file.raw.type === 'image/heic' ? 'data:image/jpg;base64,' + response.data.originImgData : URL.createObjectURL(file.raw)//file.url;
+        // console.log(response.data.originImgData)
+        // console.log(file.raw.type)
         // console.log("error" in response.data)
         // console.log(Object.prototype.hasOwnProperty.call(response.data, "error"))
         // console.log(response.data.error === undefined)
@@ -128,17 +131,22 @@ export default {
       // console.log(file.raw.url)
       this.loading = true;
       this.isShow = false;
-      const isJPG = file.type === 'image/jpeg';// || file.type === 'image/png'
+      const isJPG = file.type === 'image/jpeg';
+      const isPNG = file.type === 'image/png';
+      const isHEIC = file.type === 'image/heic';
       const isLt10M = file.size / 1024 / 1024 < 10
 
-      if (!isJPG) {
-        this.$message.error('请上传jpg图片')
+      // console.log(file.type)
+      if (!isJPG && !isPNG && !isHEIC) {
+        this.$message.error('请上传jpg/png/heic格式的图片')
         this.loading = false;
+        this.isShow = true;
         return false;
       }
       if (!isLt10M) {
         this.$message.error('请上传小于10MB的图片')
         this.loading = false;
+        this.isShow = true;
         return false;
       }
       // let fd = new FormData();//通过form数据格式来传
@@ -147,7 +155,7 @@ export default {
       //   console.log(data);
       // })
 
-      return isJPG && isLt10M
+      return (isJPG || isPNG || isHEIC) && isLt10M
     },
   }
 }
