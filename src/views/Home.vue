@@ -5,10 +5,15 @@
   <div class="HomePage">
     <h1 id="JMaskMsg">JMask是一个基于AI神经网络自动识别口罩佩戴的系统。</h1>
     <div id="JMaskAIDiv">
+<!--      <video-->
+<!--          v-show="isShowVideo"-->
+<!--          id="JMaskAIVideo"-->
+<!--          src="/store/video/JMaskAIbackgroundvideo.MP4"-->
+<!--          muted playsinline autoplay loop>-->
+<!--      </video>-->
       <video
-          v-show="isShowVideo"
           id="JMaskAIVideo"
-          src="/store/video/JMaskAIbackgroundvideo.MP4"
+          :src="JMaskAIbackgroundvideo"
           muted playsinline autoplay loop>
       </video>
       <div id="the-chip">
@@ -33,6 +38,7 @@
 
 <script>
 import {ref} from "vue";
+import store from "@/store";
 function easeInCubic(x) {
   return x * x * x;
 }
@@ -144,7 +150,8 @@ export default {
     return {
       ok: false,
       msgOpacity: 1,
-      isShowVideo: ref(false)
+      isShowVideo: ref(false),
+      JMaskAIbackgroundvideo: store.resourcesUrls.JMaskAIbackgroundvideo
     }
   },
   methods: {

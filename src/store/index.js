@@ -1,4 +1,5 @@
 const store = {
+  // 接口url
   urls: {
     //处理识别图片
     dealImgURL: '/api/JMask/DealData/dealImgWeb',
@@ -38,10 +39,16 @@ const store = {
     getJMaskAppInfoURL: '/api/JMask/Data/JMaskAppInfo',
   },
   // token: '',
+  // 状态码
   statusCode: {
     SUCCESS: 20000,
     ERROR: 50008
   },
+  //静态资源url
+  resourcesUrls: {
+    // 主页背景视频 - 50000
+    JMaskAIbackgroundvideo: '/resources/JMask/video/JMaskAiBackgroundVideo.mp4',
+  }
   // notLogin: true,
   // toPath: ''
 }
