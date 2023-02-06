@@ -1,4 +1,5 @@
 # jmask-web
+(欢迎学习,请勿抄袭)
 
 ## Project setup
 ```
